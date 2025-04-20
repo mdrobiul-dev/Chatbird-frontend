@@ -23,7 +23,7 @@ function Sidebar() {
         <button className="text-gray-600 hover:text-black">Group</button>
         <button className="text-gray-600 hover:text-black">People</button>
       </div>
-    </aside>
+              </aside>
   );
 }
 
