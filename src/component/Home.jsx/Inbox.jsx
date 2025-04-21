@@ -68,6 +68,9 @@ const Inbox = () => {
       </div>
     </div>
   );
+
+
+  
 };
 
 export default Inbox;
