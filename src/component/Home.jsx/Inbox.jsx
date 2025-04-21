@@ -1,5 +1,9 @@
 import React from "react";
-import { IoCallOutline, IoVideocamOutline, IoImageOutline } from "react-icons/io5";
+import {
+  IoCallOutline,
+  IoVideocamOutline,
+  IoImageOutline,
+} from "react-icons/io5";
 import { MdOutlineSentimentNeutral } from "react-icons/md";
 import { IoMdSend } from "react-icons/io";
 import { PiDotsThreeVerticalBold } from "react-icons/pi";
@@ -12,7 +16,11 @@ const Inbox = () => {
         <div className="flex items-center gap-3">
           {/* Avatar */}
           <div className="w-10 h-10 rounded-full overflow-hidden">
-            <img src="/avatar_1.jpg" alt="Avatar" className="object-cover w-full h-full" />
+            <img
+              src="/avatar_1.jpg"
+              alt="Avatar"
+              className="object-cover w-full h-full"
+            />
           </div>
           <span className="font-semibold">Jenny Wilson</span>
         </div>
@@ -33,7 +41,9 @@ const Inbox = () => {
         </div>
 
         <div className="flex justify-end">
-          <div className="bg-[#5c5f80] text-white px-4 py-2 rounded-md text-sm">Hlw</div>
+          <div className="bg-[#5c5f80] text-white px-4 py-2 rounded-md text-sm">
+            Hlw
+          </div>
         </div>
 
         <div className="flex justify-start">
@@ -41,7 +51,9 @@ const Inbox = () => {
         </div>
 
         <div className="flex justify-end">
-          <div className="bg-[#5c5f80] text-white px-4 py-2 rounded-md text-sm">Hlw</div>
+          <div className="bg-[#5c5f80] text-white px-4 py-2 rounded-md text-sm">
+            Hlw
+          </div>
         </div>
 
         <div className="flex justify-start">
@@ -49,7 +61,9 @@ const Inbox = () => {
         </div>
 
         <div className="flex justify-end">
-          <div className="bg-[#5c5f80] text-white px-4 py-2 rounded-md text-sm">Hlw</div>
+          <div className="bg-[#5c5f80] text-white px-4 py-2 rounded-md text-sm">
+            Hlw
+          </div>
         </div>
       </div>
 
@@ -68,11 +82,6 @@ const Inbox = () => {
       </div>
     </div>
   );
-
-
-  
 };
 
 export default Inbox;
-
-
