@@ -1,30 +1,12 @@
-// Sidebar.jsx
+import { BiSolidMessage } from "react-icons/bi";
 function Sidebar() {
-  return (
-    <aside className="hidden md:flex flex-col items-center w-20 bg-white border-r p-4">
-      <div>
-        <img
-          src="/avatar_1.jpg"
-          alt="Description of image"
-          class="max-w-full max-h-full object-cover"
-        />
+  return <div className="w-[15%] bg-[#FFFFFF]">
+      <h1 className="pl-2.5 font-bold text-3xl mb-24">Chatt.</h1>
+      <div className="flex py-2 rounded items-center gap-2 ml-6 mr-12 bg-[#32375C]">
+      <BiSolidMessage  className="text-[22px] text-center text-white m-3"/>
+        <h2 className="font-semibold text-[18px] text-white">Chatt</h2>
       </div>
-      <div className="mb-8">
-        <img
-          src="/avatar_1.png"
-          alt="User Avatar"
-          className="w-12 h-12 rounded-full object-cover"
-        />
-      </div>
-
-      {/* Navigation options */}
-      <div className="flex flex-col space-y-6">
-        <button className="text-gray-600 hover:text-black">Chat</button>
-        <button className="text-gray-600 hover:text-black">Group</button>
-        <button className="text-gray-600 hover:text-black">People</button>
-      </div>
-    </aside>
-  );
+  </div>;
 }
 
 export default Sidebar;
