@@ -6,7 +6,7 @@ const ChatList = () => {
   const [search, setSearch] = useState("");
 
   return (
-    <div className="w-[30%]">
+    <div className="w-[30%] pt-10 shadow-[0px_4px_4px_rgba(0,0,0,0.25)] bg-[#FCFCFC]">
       <div className="p-4">
         {/* Header */}
         <div className="flex items-center justify-between mb-4">

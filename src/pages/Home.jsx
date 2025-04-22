@@ -5,7 +5,7 @@ import Inbox from "../component/Home.jsx/Inbox";
 
 const Home = () => {
   return (
-    <div className="flex px-2 pt-12 h-screen">
+    <div className="flex px-2 h-screen">
       <Sidebar />
       <ChatList />
       <Inbox />
