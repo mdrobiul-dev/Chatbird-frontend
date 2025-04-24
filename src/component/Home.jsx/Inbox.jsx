@@ -7,14 +7,26 @@ import {
 import { MdOutlineSentimentNeutral } from "react-icons/md";
 import { IoMdSend } from "react-icons/io";
 import { PiDotsThreeVerticalBold } from "react-icons/pi";
+import { useNavigate } from "react-router-dom";
+import { IoChevronBack } from "react-icons/io5";
 
 const Inbox = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="w-full sm:w-[65%] lg:w-[60%] flex flex-col bg-white border-l border-[#D3D3D3]">
       {/* Top Header */}
       <div className="flex items-center pt-10 justify-between shadow-[0px_4px_20px_rgba(0,0,0,0.08)] p-4">
+        {/* Back Button - visible only on mobile */}
         <div className="flex items-center gap-3">
-          {/* Avatar */}
+          <button
+            className="block sm:hidden text-xl text-gray-600 hover:text-black mr-2"
+            onClick={() => navigate("/")}
+          >
+            <IoChevronBack />
+          </button>
+
+          {/* Avatar and Name */}
           <div className="w-10 h-10 rounded-full overflow-hidden">
             <img
               src="/avatar_1.jpg"
@@ -35,31 +47,25 @@ const Inbox = () => {
 
       {/* Messages */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
-        {/* Example messages */}
         <div className="flex justify-start">
           <div className="bg-gray-100 px-4 py-2 rounded-md text-sm">Hi</div>
         </div>
-
         <div className="flex justify-end">
           <div className="bg-[#5c5f80] text-white px-4 py-2 rounded-md text-sm">
             Hlw
           </div>
         </div>
-
         <div className="flex justify-start">
           <div className="bg-gray-100 px-4 py-2 rounded-md text-sm">Hi</div>
         </div>
-
         <div className="flex justify-end">
           <div className="bg-[#5c5f80] text-white px-4 py-2 rounded-md text-sm">
             Hlw
           </div>
         </div>
-
         <div className="flex justify-start">
           <div className="bg-gray-100 px-4 py-2 rounded-md text-sm">Hi</div>
         </div>
-
         <div className="flex justify-end">
           <div className="bg-[#5c5f80] text-white px-4 py-2 rounded-md text-sm">
             Hlw
@@ -85,3 +91,4 @@ const Inbox = () => {
 };
 
 export default Inbox;
+
