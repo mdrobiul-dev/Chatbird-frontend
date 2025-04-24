@@ -10,7 +10,7 @@ import { PiDotsThreeVerticalBold } from "react-icons/pi";
 
 const Inbox = () => {
   return (
-    <div className="w-[60%] flex flex-col bg-white border-l border-[#D3D3D3]">
+    <div className="w-full sm:w-[65%] lg:w-[60%] flex flex-col bg-white border-l border-[#D3D3D3]">
       {/* Top Header */}
       <div className="flex items-center pt-10 justify-between shadow-[0px_4px_20px_rgba(0,0,0,0.08)] p-4">
         <div className="flex items-center gap-3">

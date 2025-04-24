@@ -6,8 +6,8 @@ import { CiSettings } from "react-icons/ci";
 
 function Sidebar() {
   return (
-    <div className="w-[10%] pt-12  bg-[#FFFFFF] flex flex-col">
-      <h1 className="pl-2.5 font-bold text-2xl mb-24">ChattBird</h1>
+    <div className="hidden lg:flex w-[10%] pt-12  bg-[#FFFFFF] flex-col">
+      <h1 className="pl-2.5 font-bold text-2xl mb-24 lg:pl-0 lg:text-lg xl:pl-2.5 xl:text-2xl">ChattBird</h1>
       
       <div className="flex flex-col gap-5">
         <MenuElement icon={BiMessage} text="Chat" />

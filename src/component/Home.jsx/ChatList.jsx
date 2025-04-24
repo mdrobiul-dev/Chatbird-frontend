@@ -6,11 +6,11 @@ const ChatList = () => {
   const [search, setSearch] = useState("");
 
   return (
-    <div className="w-[30%] pt-10 shadow-[0px_4px_4px_rgba(0,0,0,0.25)] bg-[#FCFCFC]">
+    <div className="w-full sm:w-[35%] lg:w-[30%] pt-10 lg:shadow-[0px_4px_4px_rgba(0,0,0,0.25)] bg-[#FCFCFC]">
       <div className="p-4">
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-semibold">Chat</h2>
+          <h2 className="text-xl  sm:text-black font-semibold">Chat</h2>
           <button className="px-4 py-1 font-semibold text-xl text-[#32375C] hover:text-white border border-[#32375C]  rounded hover:bg-gray-500 duration-100 cursor-pointer">
             Add
           </button>
