@@ -17,7 +17,7 @@ const ChatCard = () => {
             Smokey_ricin
           </span>
           <span className="text-gray-400 text-sm group-hover:text-gray-300">
-            whats up boy.....
+            whats up boy....
           </span>
         </div>
       </div>
