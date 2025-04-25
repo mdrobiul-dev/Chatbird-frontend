@@ -30,4 +30,4 @@ const ResponsiveHome = () => {
   );    
 };
 
-export default ResponsiveHome;
+export default ResponsiveHome;  
