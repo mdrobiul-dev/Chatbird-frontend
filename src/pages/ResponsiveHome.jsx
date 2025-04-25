@@ -28,7 +28,7 @@ const ResponsiveHome = () => {
       <ChatList />
       <Inbox />
     </div>
-  );
+  );    
 };
 
 export default ResponsiveHome;
