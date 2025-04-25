@@ -38,7 +38,7 @@ const ChatList = () => {
       </div>
 
       <div className="px-4 flex flex-col gap-1.5">
-        {[1, 2, 3, 4, 5,].map((chatId) => (
+        {[1, 2, 3, 4, 5 ].map((chatId) => (
           <div
             key={chatId}
             onClick={() => handleChatClick(chatId)}
