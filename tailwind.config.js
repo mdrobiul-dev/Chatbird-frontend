@@ -7,7 +7,7 @@ export default {
         },
         screens: {
           'xs': '440px',  // custom breakpoint added
-        }
+        },
       },
     },
   }

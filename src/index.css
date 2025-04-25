@@ -3,4 +3,18 @@
 
 @import "tailwindcss";
 @plugin "daisyui";
+
+
+
+
+/* Add this to hide scrollbar for the messages area */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+
 @config "../tailwind.config.js"
+

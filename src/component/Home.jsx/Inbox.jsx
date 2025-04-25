@@ -14,7 +14,8 @@ const Inbox = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="w-full sm:w-[65%] lg:w-[60%] flex flex-col bg-white border-l border-[#D3D3D3]">
+    // ✅ CHANGED: Added 'h-screen' to make the container full screen height
+    <div className="w-full sm:w-[65%] lg:w-[60%] flex flex-col bg-white border-l border-[#D3D3D3] h-screen">
       {/* Top Header */}
       <div className="flex items-center pt-10 justify-between shadow-[0px_4px_20px_rgba(0,0,0,0.08)] p-4">
         {/* Back Button - visible only on mobile */}
@@ -46,7 +47,33 @@ const Inbox = () => {
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+      {/* ✅ CHANGED: Added 'scrollbar-hide' to hide scrollbar, and made this div scrollable with 'overflow-y-auto' */}
+      <div className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-hide">
+        <div className="flex justify-start">
+          <div className="bg-gray-100 px-4 py-2 rounded-md text-sm">Hi</div>
+        </div>
+        <div className="flex justify-end">
+          <div className="bg-[#5c5f80] text-white px-4 py-2 rounded-md text-sm">
+            Hlw
+          </div>
+        </div>
+        <div className="flex justify-start">
+          <div className="bg-gray-100 px-4 py-2 rounded-md text-sm">Hi</div>
+        </div>
+        <div className="flex justify-end">
+          <div className="bg-[#5c5f80] text-white px-4 py-2 rounded-md text-sm">
+            Hlw
+          </div>
+        </div>
+        <div className="flex justify-start">
+          <div className="bg-gray-100 px-4 py-2 rounded-md text-sm">Hi</div>
+        </div>
+        <div className="flex justify-end">
+          <div className="bg-[#5c5f80] text-white px-4 py-2 rounded-md text-sm">
+            Hlw
+          </div>
+        </div>
+
         <div className="flex justify-start">
           <div className="bg-gray-100 px-4 py-2 rounded-md text-sm">Hi</div>
         </div>
@@ -74,6 +101,7 @@ const Inbox = () => {
       </div>
 
       {/* Bottom Input */}
+      {/* ✅ This stays at bottom automatically because parent uses 'flex flex-col' and above div uses 'flex-1' */}
       <div className="p-4 flex items-center gap-3">
         <input
           type="text"
@@ -91,4 +119,5 @@ const Inbox = () => {
 };
 
 export default Inbox;
+
 
