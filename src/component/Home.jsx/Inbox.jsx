@@ -90,14 +90,6 @@ const Inbox = () => {
             Hlw
           </div>
         </div>
-        <div className="flex justify-start">
-          <div className="bg-gray-100 px-4 py-2 rounded-md text-sm">Hi</div>
-        </div>
-        <div className="flex justify-end">
-          <div className="bg-[#5c5f80] text-white px-4 py-2 rounded-md text-sm">
-            Hlw
-          </div>
-        </div>
       </div>
 
       {/* Bottom Input */}
