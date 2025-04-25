@@ -1,4 +1,3 @@
-// src/pages/ResponsiveHome.jsx
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Sidebar from "../component/Home.jsx/Sidebar";
