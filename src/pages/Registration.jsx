@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
+import { authServices } from '../services/api';
 
 const Registration = () => {
 
@@ -8,6 +9,17 @@ const [regData , setregData] = useState({
   email : "",
   password : "",
 })
+
+const handleReg = async (e) => {
+   e.preventDefault();
+   try {
+    const res = await authServices.registration(regData)
+      console.log(res)
+   } catch (error) {
+     console.log(error.response.data);
+     
+   }
+}
 
   return (
     <section className="min-h-screen flex items-center justify-center bg-white px-4">
@@ -29,7 +41,7 @@ const [regData , setregData] = useState({
       </div>
 
       {/* Form */}
-      <form className="mt-8 space-y-6">
+      <form onSubmit={handleReg} className="mt-8 space-y-6">
         <div className="space-y-4">
 
           {/* Email Field */}
