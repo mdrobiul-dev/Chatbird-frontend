@@ -1,7 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 
 const Registration = () => {
+
+const [regData , setregData] = useState({
+  fullName : "",
+  email : "",
+  password : "",
+})
+
   return (
     <section className="min-h-screen flex items-center justify-center bg-white px-4">
     <div className="container max-w-md mx-auto space-y-8">
