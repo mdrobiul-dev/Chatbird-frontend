@@ -36,6 +36,7 @@ const [regData , setregData] = useState({
           <div className="flex flex-col items-center">
             <label className="block text-xs text-gray-500 mb-1 text-center w-full font-nunito" htmlFor="email">Email Address</label>
             <input
+            onChange={(e) => setregData((prev) => ({...prev, email : e.target.value}))}
               id="email"
               name="email"
               type="email"
@@ -48,6 +49,7 @@ const [regData , setregData] = useState({
           <div className="flex flex-col items-center">
             <label className="block text-xs text-gray-500 mb-1 text-center w-full font-nunito" htmlFor="fullname">Full Name</label>
             <input
+            onChange={(e) => setregData((prev) => ({...prev, fullName : e.target.value}))}
               id="fullname"
               name="fullname"
               type="text"
@@ -60,6 +62,7 @@ const [regData , setregData] = useState({
           <div className="flex flex-col items-center">
             <label className="block text-xs text-gray-500 mb-1 text-center w-full font-nunito" htmlFor="password">Password</label>
             <input
+              onChange={(e) => setregData((prev) => ({...prev, password : e.target.value}))}
               id="password"
               name="password"
               type="password"
