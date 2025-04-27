@@ -16,4 +16,4 @@ export const authServices = {
          const res = await api.post("/auth/emailvariefication", {email , otp});
          return res.data
     }
-};
+};  
