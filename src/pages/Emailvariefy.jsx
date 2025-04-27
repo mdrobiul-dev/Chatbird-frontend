@@ -15,7 +15,6 @@ const Emailvariefy = () => {
     newCode[index] = value;
     setCode(newCode);
 
-    // Automatically focus next input
     if (value && index < 3) {
       document.getElementById(`digit-${index + 1}`).focus();
     }
