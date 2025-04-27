@@ -1,8 +1,8 @@
-// src/App.jsx
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Registration from './pages/Registration';
 import Login from './pages/Login';
 import ResponsiveHome from './pages/ResponsiveHome';
+import Emailvariefy from './pages/Emailvariefy';
 
 function App() {
   return (
@@ -12,6 +12,7 @@ function App() {
         <Route path="/chat/:id" element={<ResponsiveHome />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Registration />} />
+        <Route path="/veriefy-email/:email" element={<Emailvariefy />} />
       </Routes>
     </Router>
   );
