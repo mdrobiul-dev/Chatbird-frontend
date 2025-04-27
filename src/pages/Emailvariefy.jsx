@@ -89,4 +89,4 @@ const Emailvariefy = () => {
   );
 };
 
-export default Emailvariefy;
+export default Emailvariefy;   
