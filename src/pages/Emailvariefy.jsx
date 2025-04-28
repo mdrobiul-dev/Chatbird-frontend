@@ -110,7 +110,7 @@ const Emailvariefy = () => {
         </form>
       </div>
     </div>
-  );
+  );     
 };
 
 export default Emailvariefy;
