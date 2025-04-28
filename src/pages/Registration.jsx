@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { Link, useNavigate,  } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { authServices } from "../services/api";
 import { ToastContainer, toast } from "react-toastify";
 
 const Registration = () => {
-
   const navigate = useNavigate();
 
   const [regData, setregData] = useState({
@@ -17,18 +16,18 @@ const Registration = () => {
     e.preventDefault();
     try {
       const res = await authServices.registration(regData);
-      localStorage.setItem("userEmail", regData.email)
+      localStorage.setItem("userEmail", regData.email);
       toast.success(res.success);
       setTimeout(() => {
-        navigate("/veriefy-email")
+        navigate("/veriefy-email");
       }, 2000);
     } catch (error) {
       const message =
-              error?.response?.data?.error ||
-              error?.response?.data?.message ||
-              error?.message ||
-              "Something went wrong!";
-            toast.error(message);
+        error?.response?.data?.error ||
+        error?.response?.data?.message ||
+        error?.message ||
+        "Something went wrong!";
+      toast.error(message);
     }
   };
 
