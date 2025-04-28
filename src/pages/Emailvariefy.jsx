@@ -1,13 +1,14 @@
 import React from "react";
 import { useState } from "react";
 import { authServices } from "../services/api";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
 const Emailvariefy = () => {
   const navigation = useNavigate();
-  const params = useParams().email;
   const [code, setCode] = useState(["", "", "", ""]);
+
+  const email = localStorage.getItem("userEmail");
 
   const handleChange = (value, index) => {
     if (!/^\d*$/.test(value)) return;
@@ -25,8 +26,9 @@ const Emailvariefy = () => {
     const enteredCode = code.join("");
     console.log("Entered Code:", enteredCode);
     try {
-      const res = await authServices.emailvariefication(params, enteredCode);
+      const res = await authServices.emailvariefication(email, enteredCode);
       toast.success(res.success);
+      localStorage.removeItem("userEmail");
       setTimeout(() => {
         navigation("/login");
       }, 2000);
@@ -39,6 +41,21 @@ const Emailvariefy = () => {
       toast.error(message);
     }
   };
+
+ const handleResendOtp = async (e) => {
+   e.preventDefault()
+    try {
+      const res = await authServices.resentOtp(email);
+      toast.success(res.message);
+    } catch (error) {
+      const message =
+        error?.response?.data?.error ||
+        error?.response?.data?.message ||
+        error?.message ||
+        "Something went wrong!";
+      toast.error(message);
+    }
+ };
 
   return (
     <div className="min-h-screen flex items-center justify-center px-1.5 bg-gray-100">
@@ -83,10 +100,17 @@ const Emailvariefy = () => {
           >
             Verify
           </button>
+          <button
+            type="button"
+            onClick={handleResendOtp}
+            className="w-full bg-gray-300 hover:bg-gray-400 text-black font-semibold py-2  rounded-xl transition duration-300 mt-4"
+          >
+            Resend OTP
+          </button>
         </form>
       </div>
     </div>
   );
 };
 
-export default Emailvariefy;   
+export default Emailvariefy;

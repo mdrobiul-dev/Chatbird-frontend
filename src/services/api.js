@@ -15,5 +15,9 @@ export const authServices = {
     emailvariefication: async (email , otp) => {
          const res = await api.post("/auth/emailvariefication", {email , otp});
          return res.data
+    },
+    resentOtp : async (email) => {
+      const res = await api.post("/auth/resentotp", {email});
+      return res.data
     }
 };  

@@ -12,7 +12,7 @@ function App() {
         <Route path="/chat/:id" element={<ResponsiveHome />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Registration />} />
-        <Route path="/veriefy-email/:email" element={<Emailvariefy />} />
+        <Route path="/veriefy-email" element={<Emailvariefy />} />
       </Routes>
     </Router>
   );

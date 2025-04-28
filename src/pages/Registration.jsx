@@ -17,9 +17,10 @@ const Registration = () => {
     e.preventDefault();
     try {
       const res = await authServices.registration(regData);
+      localStorage.setItem("userEmail", regData.email)
       toast.success(res.success);
       setTimeout(() => {
-        navigate(`/veriefy-email/${regData.email}`)
+        navigate("/veriefy-email")
       }, 2000);
     } catch (error) {
       const message =
