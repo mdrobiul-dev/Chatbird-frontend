@@ -42,8 +42,8 @@ const Emailvariefy = () => {
     }
   };
 
- const handleResendOtp = async (e) => {
-   e.preventDefault()
+  const handleResendOtp = async (e) => {
+    e.preventDefault();
     try {
       const res = await authServices.resentOtp(email);
       toast.success(res.message);
@@ -55,7 +55,7 @@ const Emailvariefy = () => {
         "Something went wrong!";
       toast.error(message);
     }
- };
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center px-1.5 bg-gray-100">
@@ -110,7 +110,7 @@ const Emailvariefy = () => {
         </form>
       </div>
     </div>
-  );     
-};  
+  );
+};
 
 export default Emailvariefy;
