@@ -6,6 +6,11 @@ import { CiSettings } from "react-icons/ci";
 
 function Sidebar() {
   return (
+
+//  <div className="bg-gray-500">
+//   <h1>sidebar</h1>
+//  </div>
+
     <div className="hidden lg:flex w-[10%] pt-12  bg-[#FFFFFF] flex-col">
       <h1 className="pl-2.5 font-bold text-2xl mb-24 lg:pl-0 lg:text-lg xl:pl-2.5 xl:text-2xl">ChattBird</h1>
       

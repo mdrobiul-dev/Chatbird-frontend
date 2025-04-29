@@ -22,7 +22,7 @@ const ResponsiveHome = () => {
   }
 
   return (
-    <div className="flex px-2 h-screen">
+    <div className="flex px-2 h-screen bg-amber-400 gap-1">
       <Sidebar />
       <ChatList />
       <Inbox />

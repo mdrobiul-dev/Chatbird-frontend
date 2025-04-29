@@ -14,7 +14,7 @@ const Inbox = () => {
   const navigate = useNavigate();
 
   return (
-    // ✅ CHANGED: Added 'h-screen' to make the container full screen height
+      //  <div className="bg-amber-400"><h1>inbox</h1></div>
    <div className="w-full sm:w-[65%] lg:w-[60%] flex flex-col bg-white border-l border-[#D3D3D3] h-screen">
   {/* Top Header */}
   <div className="flex items-center justify-between p-4 pt-9 shadow-[0px_4px_20px_rgba(0,0,0,0.08)]">

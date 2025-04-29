@@ -15,6 +15,9 @@ const ChatList = () => {
   };
 
   return (
+
+  // <div className="bg-amber-100"><h1>chatlist</h1></div>
+
     <div className="w-full sm:w-[35%] lg:w-[30%] pt-8 lg:shadow-[0px_4px_4px_rgba(0,0,0,0.25)] bg-[#FCFCFC]">
       <div className="p-4">
         {/* Header */}

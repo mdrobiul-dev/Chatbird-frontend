@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import ResponsiveHome from './pages/ResponsiveHome';
 import Emailvariefy from './pages/Emailvariefy';
 
+
 function App() {
   return (
     <Router>
