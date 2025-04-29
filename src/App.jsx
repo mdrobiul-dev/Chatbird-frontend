@@ -3,6 +3,7 @@ import Registration from './pages/Registration';
 import Login from './pages/Login';
 import ResponsiveHome from './pages/ResponsiveHome';
 import Emailvariefy from './pages/Emailvariefy';
+import Test from './pages/Test';
 
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Registration />} />
         <Route path="/veriefy-email" element={<Emailvariefy />} />
+        <Route path="/test" element={<Test />} />
       </Routes>
     </Router>
   );
