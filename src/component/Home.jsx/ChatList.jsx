@@ -18,7 +18,7 @@ const ChatList = () => {
 
   // <div className="bg-amber-100"><h1>chatlist</h1></div>
 
-    <div className="w-full sm:w-[35%] lg:w-[30%] pt-8 lg:shadow-[0px_4px_4px_rgba(0,0,0,0.25)] bg-[#FCFCFC]">
+    <div className="w-full sm:w-[35%] lg:w-[30%] mt-10 pt-2 lg:shadow-[1px_0px_5px_0px_#00000014] bg-[#FCFCFC] self-start pb-10 h-[90%] flex flex-col rounded">
       <div className="p-4">
         {/* Header */}
         <div className="flex items-center justify-between mb-2">
@@ -58,8 +58,8 @@ const ChatList = () => {
       </div>
 
       {/* Chat List */}
-      <div className="px-4 flex flex-col gap-1.5">
-        {[1, 2, 3, 4, 5].map((chatId) => (
+      <div className="mx-4 flex flex-col gap-1.5 overflow-y-auto min-h-0 flex-1 scrollbar-hide">
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((chatId) => (
           <div
             key={chatId}
             onClick={() => handleChatClick(chatId)}

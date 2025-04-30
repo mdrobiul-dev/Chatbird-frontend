@@ -8,7 +8,7 @@ function Sidebar() {
   return (
     // bg-[#FFFFFF] shadow-[1px_0px_5px_0px_#00000014]
     <div className="hidden lg:flex w-[10%] mt-20 flex-col self-start rounded">
-      <h1 className="pl-2.5 font-bold text-2xl mb-18 lg:pl-0 lg:text-lg xl:pl-2.5 xl:text-2xl mt-20 cursor-pointer">ChattBird</h1>
+      <h1 className="pl-2.5 font-bold text-2xl mb-18 lg:pl-0 lg:text-lg xl:pl-2.5 xl:text-2xl mt-20 cursor-pointer hover:text-white duration-300">ChattBird</h1>
       
       <div className="flex flex-col gap-5">
         <MenuElement icon={BiMessage} text="Chat" />
@@ -27,7 +27,7 @@ function Sidebar() {
       </div>
 
         <div className="robi cursor-pointer">
-          <h2 className="text-sm text-center font-semibold font-nunito">Robiul Hassan Robi</h2>
+          <h2 className="text-sm text-center font-semibold font-nunito hover:text-white duration-100">Robiul Hassan Robi</h2>
         </div>
           <div className="mt-10 m-auto bg-pink-300 hover:bg-pink-400 rounded-full p-2.5 cursor-pointer mb-12">
           <MdLogout  className="text-2xl"/>

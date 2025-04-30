@@ -22,7 +22,7 @@ const ResponsiveHome = () => {
   }
 
   return (
-    <div className="flex px-2 min-h-screen bg-gradient-to-br from-pink-400 via-pink-200 to-sky-300 bg-opacity-90 backdrop-blur-sm gap-2">
+    <div className="flex px-2 h-screen bg-gradient-to-br from-pink-400 via-pink-200 to-sky-300 bg-opacity-90 backdrop-blur-sm gap-2">
       <Sidebar />
       <ChatList />
       <Inbox />
