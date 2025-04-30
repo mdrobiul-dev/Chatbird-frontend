@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { authServices } from "../services/api";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
@@ -58,7 +57,7 @@ const Emailvariefy = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-1.5 bg-gray-100">
+    <div className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-br from-pink-300 via-pink-200 to-sky-300 bg-opacity-90 backdrop-blur-sm">
       <ToastContainer
         position="top-right"
         autoClose={5000}
@@ -71,12 +70,19 @@ const Emailvariefy = () => {
         pauseOnHover
         theme="dark"
       />
-      <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
-        <h2 className="text-2xl font-bold text-center mb-6">
-          Verify your Email
+      
+      <div className="bg-white/80 backdrop-blur-md p-8 rounded-2xl shadow-lg w-full max-w-md">
+        <div className="text-center mb-2">
+          <h1 className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-sky-500 bg-clip-text text-transparent">
+            ChattBird
+          </h1>
+        </div>
+
+        <h2 className="text-3xl font-bold text-center text-gray-800 mb-2">
+          Verify Your Email
         </h2>
         <p className="text-gray-600 text-center mb-8">
-          Enter the 4-digit code we sent to your email
+          We've sent a 4-digit code to your email
         </p>
 
         <form onSubmit={handleSubmit} className="flex flex-col items-center">
@@ -89,23 +95,24 @@ const Emailvariefy = () => {
                 maxLength="1"
                 value={digit}
                 onChange={(e) => handleChange(e.target.value, idx)}
-                className="w-14 h-14 text-2xl text-center border-2 border-gray-300 rounded-xl focus:outline-none focus:border-blue-500"
+                className="w-16 h-16 text-3xl text-center border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-transparent bg-white/90 transition-all duration-200"
               />
             ))}
           </div>
 
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition duration-300"
+            className="w-full py-3 px-4 bg-gradient-to-r from-pink-400 to-sky-400 hover:from-pink-500 hover:to-sky-500 text-white font-medium rounded-full shadow-md hover:shadow-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-300"
           >
-            Verify
+            Verify Account
           </button>
+          
           <button
             type="button"
             onClick={handleResendOtp}
-            className="w-full bg-gray-300 hover:bg-gray-400 text-black font-semibold py-2  rounded-xl transition duration-300 mt-4"
+            className="w-full mt-4 py-2 px-4 bg-white/90 border border-gray-200 text-gray-700 font-medium rounded-full hover:bg-gray-100 hover:text-gray-900 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-300"
           >
-            Resend OTP
+            Resend Code
           </button>
         </form>
       </div>

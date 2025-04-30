@@ -7,34 +7,58 @@ import { IoClose } from "react-icons/io5";
 
 function Sidebar({ onClose }) {
   return (
-    <div className="w-full lg:w-[10vw] mt-20 flex flex-col self-start rounded bg-white/20 backdrop-blur-md p-4">
+    <div className="w-full lg:w-[10vw] mt-20 flex flex-col self-start rounded-lg bg-gradient-to-br from-pink-300/20 via-pink-200/20 to-sky-300/20 backdrop-blur-md p-4 border border-white/20 shadow-lg">
       {onClose && (
         <div className="flex justify-end">
-          <button onClick={onClose} className="text-2xl hover:text-white">
+          <button 
+            onClick={onClose} 
+            className="text-2xl text-gray-700 hover:text-pink-500 transition-colors duration-200"
+          >
             <IoClose />
           </button>
         </div>
       )}
-      <h1 className="pl-2.5 font-bold text-2xl mb-18 lg:pl-1 lg:text-lg xl:pl-2.5 xl:text-2xl mt-4 cursor-pointer hover:text-white duration-300">
+      <div className="pr-0.5 font-bold text-2xl mb-18 lg:text-lg xl:text-2xl mt-4 cursor-pointer bg-gradient-to-r from-pink-500 to-sky-500 bg-clip-text text-transparent">
+      <h1>
         ChattBird
       </h1>
-      <div className="flex flex-col gap-5 mt-6">
-        <MenuElement icon={BiMessage} text="Chat" />
-        <MenuElement icon={RiGroupLine} text="Group" />
-        <MenuElement icon={CgMenuRound} text="People" />
       </div>
-      <div className="mt-12 text-center cursor-pointer">
-        <div className="avatar">
-          <div className="w-10 h-10 rounded-full overflow-hidden">
-            <img src="/avatar_1.jpg" alt="Avatar" className="object-cover w-full h-full" />
+      <div className="flex flex-col gap-5 mt-6">
+        <MenuElement 
+          icon={BiMessage} 
+          text="Chat" 
+          iconClass="text-pink-500 group-hover:text-white" 
+          textClass="group-hover:text-white"
+        />
+        <MenuElement 
+          icon={RiGroupLine} 
+          text="Group" 
+          iconClass="text-sky-500 group-hover:text-white" 
+          textClass="group-hover:text-white"
+        />
+        <MenuElement 
+          icon={CgMenuRound} 
+          text="People" 
+          iconClass="text-pink-400 group-hover:text-white" 
+          textClass="group-hover:text-white"
+        />
+      </div>
+      <div className="mt-12 text-center cursor-pointer group">
+        <div className="avatar group-hover:ring-2 group-hover:ring-pink-300 transition-all duration-300">
+          <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-white/30 group-hover:border-pink-200 transition-all duration-300">
+            <img 
+              src="/avatar_1.jpg" 
+              alt="Avatar" 
+              className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" 
+            />
           </div>
         </div>
-        <h2 className="text-sm mt-2 font-semibold font-nunito hover:text-white duration-100">
+        <h2 className="text-sm mt-2 font-semibold text-gray-700 group-hover:text-pink-500 transition-colors duration-300">
           Robiul Hassan Robi
         </h2>
       </div>
-      <div className="mt-10 m-auto bg-pink-300 hover:bg-pink-400 rounded-full p-2.5 cursor-pointer mb-12">
-        <MdLogout className="text-2xl" />
+      <div className="mt-10 m-auto bg-gradient-to-br from-pink-400 to-sky-400 hover:from-pink-500 hover:to-sky-500 rounded-full p-2.5 cursor-pointer mb-12 shadow-md hover:shadow-lg transition-all duration-300">
+        <MdLogout className="text-2xl text-white" />
       </div>
     </div>
   );

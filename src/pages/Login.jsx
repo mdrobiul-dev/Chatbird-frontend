@@ -3,34 +3,32 @@ import { Link } from "react-router-dom";
 
 const Login = () => {
   return (
-
-    
-    <section className="min-h-screen flex items-center justify-center bg-white px-4">
-      <div className="container max-w-md mx-auto space-y-8">
+    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-300 via-pink-200 to-sky-300 bg-opacity-90 backdrop-blur-sm px-4">
+      <div className="w-full max-w-md mx-auto bg-white/80 backdrop-blur-md rounded-xl shadow-lg overflow-hidden p-8 space-y-6">
         {/* Logo */}
         <div className="flex justify-center">
-          <div className="bg-blue-700 text-white rounded-full px-6 py-2 text-lg font-semibold font-nunito">
-            ChatApp
-          </div>
+          <h1 className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-sky-500 bg-clip-text text-transparent">
+            ChattBird
+          </h1>
         </div>
 
         {/* Title */}
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-indigo-900 font-nunito">
-            Login
+          <h2 className="text-3xl font-bold text-gray-800">
+            Welcome Back
           </h2>
-          <p className="mt-2 text-sm text-gray-500 font-nunito">
-            Free register and you can enjoy it
+          <p className="mt-2 text-sm text-gray-600">
+            Sign in to continue your conversations
           </p>
         </div>
 
         {/* Form */}
-        <form className="mt-8 space-y-6">
+        <form className="space-y-5">
           <div className="space-y-4">
             {/* Email Field */}
-            <div className="flex flex-col items-center">
+            <div>
               <label
-                className="block text-xs text-gray-500 mb-1 text-center w-full font-nunito"
+                className="block text-sm font-medium text-gray-700 mb-1"
                 htmlFor="email"
               >
                 Email Address
@@ -40,14 +38,15 @@ const Login = () => {
                 name="email"
                 type="email"
                 required
-                className="appearance-none w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-4 py-3 rounded-lg bg-white/90 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-transparent transition-all duration-200"
+                placeholder="your@email.com"
               />
             </div>
 
             {/* Password Field */}
-            <div className="flex flex-col items-center">
+            <div>
               <label
-                className="block text-xs text-gray-500 mb-1 text-center w-full font-nunito"
+                className="block text-sm font-medium text-gray-700 mb-1"
                 htmlFor="password"
               >
                 Password
@@ -57,8 +56,29 @@ const Login = () => {
                 name="password"
                 type="password"
                 required
-                className="appearance-none w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-4 py-3 rounded-lg bg-white/90 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-sky-300 focus:border-transparent transition-all duration-200"
+                placeholder="••••••••"
               />
+            </div>
+          </div>
+
+          {/* Remember Me & Forgot Password */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center">
+              <input
+                id="remember-me"
+                name="remember-me"
+                type="checkbox"
+                className="h-4 w-4 text-pink-500 focus:ring-pink-400 border-gray-300 rounded"
+              />
+              <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700">
+                Remember me
+              </label>
+            </div>
+            <div className="text-sm">
+              <a href="#" className="font-medium text-pink-500 hover:text-pink-600">
+                Forgot password?
+              </a>
             </div>
           </div>
 
@@ -66,21 +86,25 @@ const Login = () => {
           <div>
             <button
               type="submit"
-              className="w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-full text-white bg-blue-700 hover:bg-blue-800 focus:outline-none font-nunito"
+              className="w-full py-3 px-4 bg-gradient-to-r from-pink-400 to-sky-400 hover:from-pink-500 hover:to-sky-500 text-white font-medium rounded-full shadow-md hover:shadow-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-300"
             >
               Sign In
             </button>
-            <p className="text-center text-sm text-gray-600 mt-4 font-nunito">
-              Don't have an account?
-              <Link
-                to="/register"
-                className="text-blue-600 hover:underline ml-1 font-nunito"
-              >
-                Sign in
-              </Link>
-            </p>
           </div>
         </form>
+
+        {/* Sign Up Link */}
+        <div className="text-center text-sm text-gray-600">
+          <p>
+            Don't have an account?{" "}
+            <Link
+              to="/register"
+              className="font-medium text-sky-500 hover:text-sky-600 hover:underline"
+            >
+              Create one
+            </Link>
+          </p>
+        </div>
       </div>
     </section>
   );

@@ -32,7 +32,7 @@ const Registration = () => {
   };
 
   return (
-    <section className="min-h-screen flex items-center justify-center bg-white px-4">
+    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-300 via-pink-200 to-sky-300 bg-opacity-90 backdrop-blur-sm px-4">
       <ToastContainer
         position="top-right"
         autoClose={5000}
@@ -45,51 +45,32 @@ const Registration = () => {
         pauseOnHover
         theme="dark"
       />
-      <div className="container max-w-md mx-auto space-y-8">
+      
+      <div className="w-full max-w-md mx-auto bg-white/80 backdrop-blur-md rounded-xl shadow-lg overflow-hidden p-8 space-y-6">
         {/* Logo */}
         <div className="flex justify-center">
-          <h1 className="bg-blue-700 text-white rounded-full px-6 py-2 font-nunito text-lg font-semibold">
-            ChatApp
+          <h1 className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-sky-500 bg-clip-text text-transparent">
+            ChattBird
           </h1>
         </div>
 
         {/* Title */}
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-indigo-900 font-nunito">
-            Get started with easily register
+          <h2 className="text-3xl font-bold text-gray-800">
+            Create Account
           </h2>
-          <p className="mt-2 text-sm text-gray-500 font-nunito">
-            Free register and you can enjoy it
+          <p className="mt-2 text-sm text-gray-600">
+            Join us to start chatting
           </p>
         </div>
 
         {/* Form */}
-        <form onSubmit={handleReg} className="mt-8 space-y-6">
+        <form onSubmit={handleReg} className="space-y-5">
           <div className="space-y-4">
-            {/* Email Field */}
-            <div className="flex flex-col items-center">
-              <label
-                className="block text-xs text-gray-500 mb-1 text-center w-full font-nunito"
-                htmlFor="email"
-              >
-                Email Address
-              </label>
-              <input
-                onChange={(e) =>
-                  setregData((prev) => ({ ...prev, email: e.target.value }))
-                }
-                id="email"
-                name="email"
-                type="email"
-                required
-                className="appearance-none w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              />
-            </div>
-
             {/* Full Name Field */}
-            <div className="flex flex-col items-center">
+            <div>
               <label
-                className="block text-xs text-gray-500 mb-1 text-center w-full font-nunito"
+                className="block text-sm font-medium text-gray-700 mb-1"
                 htmlFor="fullname"
               >
                 Full Name
@@ -102,14 +83,36 @@ const Registration = () => {
                 name="fullname"
                 type="text"
                 required
-                className="appearance-none w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-4 py-3 rounded-lg bg-white/90 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-transparent transition-all duration-200"
+                placeholder="John Doe"
+              />
+            </div>
+
+            {/* Email Field */}
+            <div>
+              <label
+                className="block text-sm font-medium text-gray-700 mb-1"
+                htmlFor="email"
+              >
+                Email Address
+              </label>
+              <input
+                onChange={(e) =>
+                  setregData((prev) => ({ ...prev, email: e.target.value }))
+                }
+                id="email"
+                name="email"
+                type="email"
+                required
+                className="w-full px-4 py-3 rounded-lg bg-white/90 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-sky-300 focus:border-transparent transition-all duration-200"
+                placeholder="your@email.com"
               />
             </div>
 
             {/* Password Field */}
-            <div className="flex flex-col items-center">
+            <div>
               <label
-                className="block text-xs text-gray-500 mb-1 text-center w-full font-nunito"
+                className="block text-sm font-medium text-gray-700 mb-1"
                 htmlFor="password"
               >
                 Password
@@ -122,7 +125,8 @@ const Registration = () => {
                 name="password"
                 type="password"
                 required
-                className="appearance-none w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-4 py-3 rounded-lg bg-white/90 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-transparent transition-all duration-200"
+                placeholder="••••••••"
               />
             </div>
           </div>
@@ -131,21 +135,25 @@ const Registration = () => {
           <div>
             <button
               type="submit"
-              className="w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-full text-white bg-blue-700 hover:bg-blue-800 focus:outline-none font-nunito"
+              className="w-full py-3 px-4 bg-gradient-to-r from-pink-400 to-sky-400 hover:from-pink-500 hover:to-sky-500 text-white font-medium rounded-full shadow-md hover:shadow-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-300"
             >
-              Sign up
+              Sign Up
             </button>
-            <p className="text-center text-sm text-gray-600 mt-4 font-nunito">
-              Already have an account?
-              <Link
-                to="/login"
-                className="text-blue-600 hover:underline ml-1 font-nunito"
-              >
-                Login
-              </Link>
-            </p>
           </div>
         </form>
+
+        {/* Login Link */}
+        <div className="text-center text-sm text-gray-600">
+          <p>
+            Already have an account?{" "}
+            <Link
+              to="/login"
+              className="font-medium text-sky-500 hover:text-sky-600 hover:underline"
+            >
+              Login
+            </Link>
+          </p>
+        </div>
       </div>
     </section>
   );
