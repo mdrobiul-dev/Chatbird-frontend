@@ -14,7 +14,6 @@ const Inbox = () => {
   const navigate = useNavigate();
 
   return (
-      //  <div className="bg-amber-400"><h1>inbox</h1></div>
    <div className="w-full sm:w-[65%] lg:w-[60%] flex flex-col  bg-white/20 backdrop-blur-md shadow-[1px_0px_5px_0px_#00000014] border-[#D3D3D3] mt-1 self-start h-[98%]  rounded">
   {/* Top Header */}
   <div className="flex items-center justify-between bg-white/80 p-4 pt-9 shadow-[0px_4px_20px_rgba(0,0,0,0.08)]">

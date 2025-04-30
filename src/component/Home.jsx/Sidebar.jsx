@@ -1,4 +1,3 @@
-// Sidebar.jsx
 import MenuElement from "./MenuElement";
 import { RiGroupLine } from "react-icons/ri";
 import { BiMessage } from "react-icons/bi";
