@@ -18,7 +18,7 @@ const ResponsiveHome = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const isChatPage = location.pathname.startsWith("/chat/");
+  const isChatPage = location.pathname.startsWith("/home/chat/");
 
   return (
     <div className="relative flex px-2 h-screen bg-gradient-to-br from-pink-300 via-pink-200 to-sky-300 bg-opacity-90 backdrop-blur-sm gap-2">

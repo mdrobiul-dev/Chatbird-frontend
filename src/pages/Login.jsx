@@ -6,9 +6,8 @@ import { useDispatch } from "react-redux";
 import { loggedUser } from "../store/auth/authSlice";
 
 const Login = () => {
-
   const dispatch = useDispatch();
-  const navigate = useNavigate;
+  const navigate = useNavigate();
 
   const [loginData, setloginData] = useState({
     email: "",
@@ -22,16 +21,16 @@ const Login = () => {
       const res = await authServices.login(loginData);
       toast.success(res.message);
       dispatch(loggedUser(res.user));
-      // setTimeout(() => {
-      //   navigate("/veriefy-email");
-      // }, 2000);
+      setTimeout(() => {
+        navigate("/home");
+      }, 1000);
     } catch (error) {
       const message =
         error?.response?.data?.error ||
         error?.response?.data?.message ||
         error?.message ||
         "Something went wrong!";
-        console.log(error)
+      console.log(error);
       toast.error(message);
     }
   };

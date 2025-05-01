@@ -21,7 +21,7 @@ const Inbox = () => {
         <div className="flex items-center gap-3">
           <button
             className="block sm:hidden text-xl text-gray-600 hover:text-pink-500 transition-colors duration-200"
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/home")}
           >
             <IoChevronBack />
           </button>
