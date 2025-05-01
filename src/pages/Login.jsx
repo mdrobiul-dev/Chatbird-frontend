@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { authServices } from "../services/api";
 import { ToastContainer, toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { loggedUser } from "../store/auth/authSlice";
 
 const Login = () => {
+
+  const dispatch = useDispatch();
   const navigate = useNavigate;
 
   const [loginData, setloginData] = useState({
@@ -17,6 +21,7 @@ const Login = () => {
     try {
       const res = await authServices.login(loginData);
       toast.success(res.message);
+      dispatch(loggedUser(res.user));
       // setTimeout(() => {
       //   navigate("/veriefy-email");
       // }, 2000);

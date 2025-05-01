@@ -12,7 +12,7 @@ const ChatList = ({ onMenuClick }) => {
   const navigate = useNavigate();
 
   const handleChatClick = (chatId) => {
-    navigate(`/chat/${chatId}`);
+    navigate(`/home/chat/${chatId}`);
   };
 
   return (
