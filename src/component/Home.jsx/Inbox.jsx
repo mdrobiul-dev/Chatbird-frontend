@@ -28,10 +28,10 @@ const Inbox = () => {
 
           <div className="flex items-center gap-2">
             <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-white/30 hover:border-pink-200 transition-all duration-300">
-              <img 
-                src="/avatar_1.jpg" 
-                alt="Avatar" 
-                className="object-cover w-full h-full hover:scale-105 transition-transform duration-300" 
+              <img
+                src="/avatar_1.jpg"
+                alt="Avatar"
+                className="object-cover w-full h-full hover:scale-105 transition-transform duration-300"
               />
             </div>
             <span className="font-semibold text-gray-700">smokey_ricin</span>
@@ -49,13 +49,22 @@ const Inbox = () => {
       {/* Messages Area */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-hide">
         {[...Array(20)].map((_, index) => (
-          <div key={index} className={`flex ${index % 2 === 0 ? 'justify-start' : 'justify-end'}`}>
-            <div className={`px-4 py-2 rounded-lg text-sm max-w-xs md:max-w-md ${
-              index % 2 === 0 
-                ? 'bg-white/90 text-gray-800' 
-                : 'bg-gradient-to-r from-pink-400 to-sky-400 text-white shadow-md'
-            }`}>
-              {index % 2 === 0 ? 'Hi there! How are you doing today?' : 'I\'m great! Just working on some new features for our app.'}
+          <div
+            key={index}
+            className={`flex ${
+              index % 2 === 0 ? "justify-start" : "justify-end"
+            }`}
+          >
+            <div
+              className={`px-4 py-2 rounded-lg text-sm max-w-xs md:max-w-md ${
+                index % 2 === 0
+                  ? "bg-white/90 text-gray-800"
+                  : "bg-gradient-to-r from-pink-400 to-sky-400 text-white shadow-md"
+              }`}
+            >
+              {index % 2 === 0
+                ? "Hi there! How are you doing today?"
+                : "I'm great! Just working on some new features for our app."}
             </div>
           </div>
         ))}
@@ -79,5 +88,3 @@ const Inbox = () => {
 };
 
 export default Inbox;
-
-
