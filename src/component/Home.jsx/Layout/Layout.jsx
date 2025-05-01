@@ -1,18 +1,16 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
-import { Navigate, Outlet } from 'react-router-dom'
+import React from "react";
+import { useSelector } from "react-redux";
+import { Navigate, Outlet } from "react-router-dom";
 
 const Layout = () => {
-    const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user);
 
-    console.log(user)
+  console.log(user);
 
-    if(!user) {
-        return <Navigate to="/login" replace/>
-    }
-  return (
-    <Outlet />
-  )
-}
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+  return <Outlet />;
+};
 
-export default Layout
+export default Layout;
