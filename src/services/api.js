@@ -22,7 +22,10 @@ export const authServices = {
   },
   login: async (userData) => {
     const res = await api.post("/auth/login", userData);
-    console.log(res.data)
+    if(res.data.acces_token) {
+      localStorage.setItem("token", res.data.acces_token);
+      localStorage.setItem("loggedUser", JSON.stringify(res.data.user))
+    }
     return res.data
   }
 };
