@@ -1,9 +1,50 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { authServices } from "../services/api";
+import { ToastContainer, toast } from "react-toastify";
 
 const Login = () => {
+  const navigate = useNavigate;
+
+  const [loginData, setloginData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await authServices.login(loginData);
+      toast.success(res.message);
+      // setTimeout(() => {
+      //   navigate("/veriefy-email");
+      // }, 2000);
+    } catch (error) {
+      const message =
+        error?.response?.data?.error ||
+        error?.response?.data?.message ||
+        error?.message ||
+        "Something went wrong!";
+        console.log(error)
+      toast.error(message);
+    }
+  };
+
   return (
     <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-300 via-pink-200 to-sky-300 bg-opacity-90 backdrop-blur-sm px-4">
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
       <div className="w-full max-w-md mx-auto bg-white/80 backdrop-blur-md rounded-xl shadow-lg overflow-hidden p-8 space-y-6">
         {/* Logo */}
         <div className="flex justify-center">
@@ -14,16 +55,14 @@ const Login = () => {
 
         {/* Title */}
         <div className="text-center">
-          <h2 className="text-3xl font-bold text-gray-800">
-            Welcome Back
-          </h2>
+          <h2 className="text-3xl font-bold text-gray-800">Welcome Back</h2>
           <p className="mt-2 text-sm text-gray-600">
             Sign in to continue your conversations
           </p>
         </div>
 
         {/* Form */}
-        <form className="space-y-5">
+        <form className="space-y-5" onSubmit={handleLogin}>
           <div className="space-y-4">
             {/* Email Field */}
             <div>
@@ -34,6 +73,9 @@ const Login = () => {
                 Email Address
               </label>
               <input
+                onChange={(e) =>
+                  setloginData((prev) => ({ ...prev, email: e.target.value }))
+                }
                 id="email"
                 name="email"
                 type="email"
@@ -52,6 +94,12 @@ const Login = () => {
                 Password
               </label>
               <input
+                onChange={(e) =>
+                  setloginData((prev) => ({
+                    ...prev,
+                    password: e.target.value,
+                  }))
+                }
                 id="password"
                 name="password"
                 type="password"
@@ -71,12 +119,18 @@ const Login = () => {
                 type="checkbox"
                 className="h-4 w-4 text-pink-500 focus:ring-pink-400 border-gray-300 rounded"
               />
-              <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700">
+              <label
+                htmlFor="remember-me"
+                className="ml-2 block text-sm text-gray-700"
+              >
                 Remember me
               </label>
             </div>
             <div className="text-sm">
-              <a href="#" className="font-medium text-pink-500 hover:text-pink-600">
+              <a
+                href="#"
+                className="font-medium text-pink-500 hover:text-pink-600"
+              >
                 Forgot password?
               </a>
             </div>

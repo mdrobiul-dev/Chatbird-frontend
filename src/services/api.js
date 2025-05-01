@@ -20,4 +20,9 @@ export const authServices = {
     const res = await api.post("/auth/resentotp", { email });
     return res.data;
   },
+  login: async (userData) => {
+    const res = await api.post("/auth/login", userData);
+    console.log(res.data)
+    return res.data
+  }
 };
