@@ -103,9 +103,7 @@ const ChatList = ({ onMenuClick }) => {
               conversation.creator._id === userData._id
                 ? conversation.participant
                 : conversation.creator;
-            return other.fullName
-              .toLowerCase()
-              .includes(search.toLowerCase());
+            return other.fullName.toLowerCase().includes(search.toLowerCase());
           })
           .map((conversation) => {
             const other =
@@ -133,4 +131,3 @@ const ChatList = ({ onMenuClick }) => {
 };
 
 export default ChatList;
-
