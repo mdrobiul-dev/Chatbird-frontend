@@ -110,6 +110,19 @@ const ChatList = ({ onMenuClick }) => {
               conversation.creator._id === userData._id
                 ? conversation.participant
                 : conversation.creator;
+
+            // Format the time
+            const lastMessageTime = conversation.lastmessage?.createdAt
+              ? new Date(conversation.lastmessage.createdAt).toLocaleTimeString(
+                  [],
+                  {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: true,
+                  }
+                )
+              : "Just now";
+
             return (
               <div
                 key={conversation._id}
@@ -120,7 +133,7 @@ const ChatList = ({ onMenuClick }) => {
                   name={other.fullName}
                   avatar={other.avatar}
                   message={conversation?.lastmessage?.text || "No messages yet"}
-                  time={"Just now"} // Replace with real timestamp if available
+                  time={lastMessageTime}
                 />
               </div>
             );
