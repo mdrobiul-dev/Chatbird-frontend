@@ -5,11 +5,7 @@ const ChatCard = ({ name, avatar, message, time }) => {
     <div className="group flex items-center justify-between hover:bg-[#f5c6f9c3] duration-100 p-4 rounded-lg cursor-pointer">
       <div className="flex items-center gap-3">
         <div className="w-10 h-10 rounded-full overflow-hidden">
-          <img
-            src={avatar}
-            alt={name}
-            className="object-cover w-full h-full"
-          />
+          <img src={avatar} alt={name} className="object-cover w-full h-full" />
         </div>
         <div className="flex flex-col">
           <span className="font-semibold text-[#222222]">{name}</span>
@@ -24,4 +20,3 @@ const ChatCard = ({ name, avatar, message, time }) => {
 };
 
 export default ChatCard;
-
