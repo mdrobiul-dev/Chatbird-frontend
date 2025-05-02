@@ -4,8 +4,10 @@ import { BiMessage } from "react-icons/bi";
 import { CgMenuRound } from "react-icons/cg";
 import { MdLogout } from "react-icons/md";
 import { IoClose } from "react-icons/io5";
+import { useSelector } from "react-redux";
 
 function Sidebar({ onClose }) {
+  const userData = useSelector((state) => state.user);
   return (
     <div className="w-full lg:w-[10vw] mt-20 flex flex-col self-start rounded-lg bg-gradient-to-br from-pink-300/20 via-pink-200/20 to-sky-300/20 backdrop-blur-md p-4 border border-white/20 shadow-lg">
       {onClose && (
@@ -47,14 +49,14 @@ function Sidebar({ onClose }) {
         <div className="avatar group-hover:ring-2 group-hover:ring-pink-300 transition-all duration-300">
           <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-white/30 group-hover:border-pink-200 transition-all duration-300">
             <img 
-              src="/avatar_1.jpg" 
+              src={userData.avatar}
               alt="Avatar" 
               className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300" 
             />
           </div>
         </div>
         <h2 className="text-sm mt-2 font-semibold text-gray-700 group-hover:text-pink-500 transition-colors duration-300">
-          Robiul Hassan Robi
+          {userData.fullName}
         </h2>
       </div>
       <div className="mt-10 m-auto bg-gradient-to-br from-pink-400 to-sky-400 hover:from-pink-500 hover:to-sky-500 rounded-full p-2.5 cursor-pointer mb-12 shadow-md hover:shadow-lg transition-all duration-300">
