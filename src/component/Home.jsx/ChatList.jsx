@@ -131,7 +131,9 @@ const ChatList = ({ onMenuClick }) => {
                 <ChatCard
                   name={other.fullName}
                   avatar={other.avatar}
-                  message={conversation?.lastmessage?.content || "No messages yet"}
+                  message={
+                    conversation?.lastmessage?.content || "No messages yet"
+                  }
                   time={lastMessageTime}
                 />
               </div>
