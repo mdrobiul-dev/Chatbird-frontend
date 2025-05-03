@@ -110,7 +110,6 @@ const ChatList = ({ onMenuClick }) => {
               conversation.creator._id === userData._id
                 ? conversation.participant
                 : conversation.creator;
-
             // Format the time
             const lastMessageTime = conversation.lastmessage?.createdAt
               ? new Date(conversation.lastmessage.createdAt).toLocaleTimeString(
@@ -132,7 +131,7 @@ const ChatList = ({ onMenuClick }) => {
                 <ChatCard
                   name={other.fullName}
                   avatar={other.avatar}
-                  message={conversation?.lastmessage?.text || "No messages yet"}
+                  message={conversation?.lastmessage?.content || "No messages yet"}
                   time={lastMessageTime}
                 />
               </div>

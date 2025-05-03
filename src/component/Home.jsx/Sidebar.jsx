@@ -5,6 +5,7 @@ import { CgMenuRound } from "react-icons/cg";
 import { MdLogout } from "react-icons/md";
 import { IoClose } from "react-icons/io5";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 function Sidebar({ onClose }) {
   const userData = useSelector((state) => state.user);
@@ -59,9 +60,9 @@ function Sidebar({ onClose }) {
           {userData.fullName}
         </h2>
       </div>
-      <div className="mt-10 m-auto bg-gradient-to-br from-pink-400 to-sky-400 hover:from-pink-500 hover:to-sky-500 rounded-full p-2.5 cursor-pointer mb-12 shadow-md hover:shadow-lg transition-all duration-300">
+      <Link to="/login" className="mt-10 m-auto bg-gradient-to-br from-pink-400 to-sky-400 hover:from-pink-500 hover:to-sky-500 rounded-full p-2.5 cursor-pointer mb-12 shadow-md hover:shadow-lg transition-all duration-300">
         <MdLogout className="text-2xl text-white" />
-      </div>
+      </Link>
     </div>
   );
 }
