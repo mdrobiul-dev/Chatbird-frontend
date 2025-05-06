@@ -144,4 +144,4 @@ const ChatList = ({ onMenuClick }) => {
   );
 };
 
-export default ChatList;
+export default ChatList;    
