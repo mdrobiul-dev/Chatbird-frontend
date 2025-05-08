@@ -36,6 +36,14 @@ const ChatList = ({ onMenuClick }) => {
     navigate(`/home/chat/${chatId}`);
   };
 
+  const filteredConversations = conversationList.filter((conversation) => {
+    const other =
+      conversation.creator._id === userData._id
+        ? conversation.participant
+        : conversation.creator;
+    return other.fullName.toLowerCase().includes(search.toLowerCase());
+  });
+  
   return (
     <div className="w-full sm:w-[35%] lg:w-[30%] mt-5 sm:mt-10 pt-2 bg-gradient-to-br from-pink-100/50 via-pink-50/50 to-sky-100/50 backdrop-blur-md self-start pb-10 h-[95%] sm:h-[90%] flex flex-col rounded-xl border border-white/30 shadow-lg">
       <ToastContainer position="top-right" autoClose={5000} theme="dark" />
@@ -97,15 +105,18 @@ const ChatList = ({ onMenuClick }) => {
       </div>
 
       <div className="mx-4 flex flex-col gap-2 overflow-y-auto min-h-0 flex-1 scrollbar-hide">
-        {conversationList
-          .filter((conversation) => {
-            const other =
-              conversation.creator._id === userData._id
-                ? conversation.participant
-                : conversation.creator;
-            return other.fullName.toLowerCase().includes(search.toLowerCase());
-          })
-          .map((conversation) => {
+        {conversationList.length === 0 ? (
+          <div className="flex flex-col items-center justify-center h-full text-gray-500">
+            <p className="text-lg">No conversations yet</p>
+            <p className="text-sm">Start a new chat by clicking the add button</p>
+          </div>
+        ) : filteredConversations.length === 0 ? (
+          <div className="flex flex-col items-center justify-center h-full text-gray-500">
+            <p className="text-lg">No results found</p>
+            <p className="text-sm">Try a different search term</p>
+          </div>
+        ) : (
+          filteredConversations.map((conversation) => {
             const other =
               conversation.creator._id === userData._id
                 ? conversation.participant
@@ -138,10 +149,11 @@ const ChatList = ({ onMenuClick }) => {
                 />
               </div>
             );
-          })}
+          })
+        )}
       </div>
     </div>
   );
 };
 
-export default ChatList;    
+export default ChatList; 
