@@ -52,7 +52,7 @@ const handleAdd = async (e) => {
         console.log(message);
         
      }
-}  //this is unfinished
+}  
 
   const filteredConversations = conversationList.filter((conversation) => {
     const other =
