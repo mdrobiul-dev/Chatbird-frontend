@@ -11,6 +11,7 @@ import { chatServices } from "../../services/api";
 
 const ChatList = ({ onMenuClick }) => {
   const [conversationList, setConversationList] = useState([]);
+  const [participantemail, setparticipantemail] = useState("");
   const [search, setSearch] = useState("");
   const [showInputBox, setShowInputBox] = useState(false);
   const navigate = useNavigate();
@@ -35,6 +36,23 @@ const ChatList = ({ onMenuClick }) => {
   const handleChatClick = (chatId) => {
     navigate(`/home/chat/${chatId}`);
   };
+
+const handleAdd = async (e) => {
+     try {
+      const res = await chatServices.createconversation(participantemail);
+      console.log(res)
+      setShowInputBox(false)
+     } catch (error) {
+      const message =
+          error?.response?.data?.error ||
+          error?.response?.data?.message ||
+          error?.message ||
+          "Something went wrong!";
+        toast.error(message);
+        console.log(message);
+        
+     }
+} 
 
   const filteredConversations = conversationList.filter((conversation) => {
     const other =
@@ -69,6 +87,7 @@ const ChatList = ({ onMenuClick }) => {
         {showInputBox && (
           <div className="relative mt-4 bg-white/90 backdrop-blur-sm p-3 rounded-lg shadow-md">
             <input
+            onChange={(e) =>setparticipantemail(e.target.value)}
               type="email"
               placeholder="Enter email address"
               className="w-full pl-4 pr-10 py-2 bg-white/80 backdrop-blur-md border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-transparent transition-all duration-200"
@@ -76,7 +95,7 @@ const ChatList = ({ onMenuClick }) => {
             <div className="flex justify-center gap-4 mt-3">
               <button
                 className="px-5 py-1 bg-gradient-to-r from-pink-400 to-sky-400 text-white rounded-lg hover:from-pink-500 hover:to-sky-500 transition-all duration-200"
-                onClick={() => setShowInputBox(false)}
+                onClick={handleAdd}
               >
                 Add
               </button>
