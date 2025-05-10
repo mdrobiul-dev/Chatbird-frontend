@@ -40,8 +40,12 @@ const ChatList = ({ onMenuClick }) => {
 const handleAdd = async (e) => {
      try {
       const res = await chatServices.createconversation(participantemail);
-      console.log(res)
-      setShowInputBox(false)
+    setShowInputBox(false);
+    setparticipantemail(""); 
+    const updatedRes = await chatServices.conversationList();
+    setConversationList(updatedRes.success || []);
+
+    toast.success("Conversation created successfully!");
      } catch (error) {
       const message =
           error?.response?.data?.error ||
