@@ -29,5 +29,5 @@ const ChatCard = ({ name, avatar, message, time }) => {
   );
 };   
 
-export default ChatCard;
+export default ChatCard;   
 
