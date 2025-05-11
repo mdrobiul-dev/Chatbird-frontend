@@ -27,7 +27,7 @@ const ChatCard = ({ name, avatar, message, time }) => {
       <span className="text-gray-400 text-xs">{time}</span>
     </div>
   );
-};
+};   
 
 export default ChatCard;
 
