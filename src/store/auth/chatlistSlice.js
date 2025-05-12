@@ -22,7 +22,7 @@ const chatlistSlice = createSlice({
     status: "active",
     error: null,
   },
-  reducers: {}, // keep empty if not needed
+  reducers: {}, 
   extraReducers: (builder) => {
     builder
       .addCase(fetchChatlist.pending, (state) => {
