@@ -14,7 +14,7 @@ export const fetchChatlist = createAsyncThunk(
   }
 );
 
-// Slice definition
+
 const chatlistSlice = createSlice({
   name: "chatList",
   initialState: {
