@@ -7,7 +7,7 @@ export const fetchChatlist = createAsyncThunk(
   async () => {
     try {
       const res = await chatServices.conversationList();
-      return res.success; // Assuming .success contains the array
+      return res.success; 
     } catch (error) {
       throw error;
     }
