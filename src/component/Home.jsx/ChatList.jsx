@@ -6,57 +6,62 @@ import { FaUserPlus } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { ImCross } from "react-icons/im";
 import { RiMenuLine } from "react-icons/ri";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { chatServices } from "../../services/api";
+import { fetchChatlist } from "../../store/auth/chatlistSlice";
 
 const ChatList = ({ onMenuClick }) => {
-  const [conversationList, setConversationList] = useState([]);
+  // const [conversationList, setConversationList] = useState([]);
   const [participantemail, setparticipantemail] = useState("");
   const [search, setSearch] = useState("");
   const [showInputBox, setShowInputBox] = useState(false);
   const navigate = useNavigate();
-  const userData = useSelector((state) => state.user);
+  const userData = useSelector((state) => state.auth.user);
+  const {conversationList, status} = useSelector((state) => state.chatList)
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    (async () => {
-      try {
-        const res = await chatServices.conversationList();
-        setConversationList(res.success || []);
-      } catch (error) {
-        const message =
-          error?.response?.data?.error ||
-          error?.response?.data?.message ||
-          error?.message ||
-          "Something went wrong!";
-        toast.error(message);
-      }
-    })();
-  }, []);
+    dispatch(fetchChatlist());
+  },[])
 
   const handleChatClick = (chatId) => {
     navigate(`/home/chat/${chatId}`);
   };
 
-const handleAdd = async (e) => {
-     try {
+  const handleAdd = async (e) => {
+    try {
       const res = await chatServices.createconversation(participantemail);
-    setShowInputBox(false);
-    setparticipantemail(""); 
-    const updatedRes = await chatServices.conversationList();
-    setConversationList(updatedRes.success || []);
+      setShowInputBox(false);
+      setparticipantemail("");
+      const updatedRes = await chatServices.conversationList();
+      setConversationList(updatedRes.success || []);
 
-    toast.success("Conversation created successfully!");
-     } catch (error) {
+      toast.success("Conversation created successfully!");
+    } catch (error) {
       const message =
-          error?.response?.data?.error ||
-          error?.response?.data?.message ||
-          error?.message ||
-          "Something went wrong!";
-        toast.error(message);
-        console.log(message);
-        
-     }
-}  
+        error?.response?.data?.error ||
+        error?.response?.data?.message ||
+        error?.message ||
+        "Something went wrong!";
+      toast.error(message);
+      console.log(message);
+    }
+  };
+
+  
+  if (status === "loading") {
+    return <p>loading........</p>;
+  }
+
+  if (!conversationList || conversationList.length === 0) {
+    return (
+      <div className="empty-conversations">
+        <p>No conversations yet</p>
+        <p>Start a new conversation using the button above</p>
+      </div>
+    );
+  }
 
   const filteredConversations = conversationList.filter((conversation) => {
     const other =
@@ -68,7 +73,7 @@ const handleAdd = async (e) => {
 
   return (
     <div className="w-full sm:w-[35%] lg:w-[30%] mt-5 sm:mt-10 pt-2 bg-gradient-to-br from-pink-100/50 via-pink-50/50 to-sky-100/50 backdrop-blur-md self-start pb-10 h-[95%] sm:h-[90%] flex flex-col rounded-xl border border-white/30 shadow-lg">
-      <ToastContainer position="top-right" autoClose={5000} theme="dark" />
+      <ToastContainer position="top-left" autoClose={5000} theme="dark" />
       <div className="p-4">
         <div className="flex items-center justify-between mb-2">
           <button
@@ -91,7 +96,7 @@ const handleAdd = async (e) => {
         {showInputBox && (
           <div className="relative mt-4 bg-white/90 backdrop-blur-sm p-3 rounded-lg shadow-md">
             <input
-            onChange={(e) =>setparticipantemail(e.target.value)}
+              onChange={(e) => setparticipantemail(e.target.value)}
               type="email"
               placeholder="Enter email address"
               className="w-full pl-4 pr-10 py-2 bg-white/80 backdrop-blur-md border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-transparent transition-all duration-200"
@@ -131,7 +136,9 @@ const handleAdd = async (e) => {
         {conversationList.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full text-gray-500">
             <p className="text-lg">No conversations yet</p>
-            <p className="text-sm">Start a new chat by clicking the add button</p>
+            <p className="text-sm">
+              Start a new chat by clicking the add button
+            </p>
           </div>
         ) : filteredConversations.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full text-gray-500">
@@ -179,4 +186,4 @@ const handleAdd = async (e) => {
   );
 };
 
-export default ChatList; 
+export default ChatList;

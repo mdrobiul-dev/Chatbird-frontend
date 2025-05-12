@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 function Sidebar({ onClose }) {
-  const userData = useSelector((state) => state.user);
+  const userData = useSelector((state) => state.auth.user);
   
   // Function to get the first letter of the fullName
   const getInitial = (name) => {
