@@ -45,7 +45,7 @@ const Registration = () => {
         pauseOnHover
         theme="dark"
       />
-      
+
       <div className="w-full max-w-md mx-auto bg-white/80 backdrop-blur-md rounded-xl shadow-lg overflow-hidden p-8 space-y-6">
         {/* Logo */}
         <div className="flex justify-center">
@@ -56,9 +56,7 @@ const Registration = () => {
 
         {/* Title */}
         <div className="text-center">
-          <h2 className="text-3xl font-bold text-gray-800">
-            Create Account
-          </h2>
+          <h2 className="text-3xl font-bold text-gray-800">Create Account</h2>
           <p className="mt-2 text-sm text-gray-600">
             Join us to start chatting
           </p>
