@@ -49,12 +49,14 @@ export const chatServices = {
     const res = await api.get("/chat/conversationlist");
     return res.data;
   },
-  createconversation : async (participantemail) => {
-    const res = await api.post("/chat/createconversation", {participantemail});
+  createconversation: async (participantemail) => {
+    const res = await api.post("/chat/createconversation", {
+      participantemail,
+    });
     return res.data;
   },
   getMessages: async (conversationID) => {
-     const res = await api.get(`/chat/getmessage/${conversationID}`);
-     return res.data ;
-  }
+    const res = await api.get(`/chat/getmessage/${conversationID}`);
+    return res.data;
+  },
 };
