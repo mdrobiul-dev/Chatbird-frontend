@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   IoCallOutline,
   IoVideocamOutline,
@@ -9,15 +9,26 @@ import { IoMdSend } from "react-icons/io";
 import { PiDotsThreeVerticalBold } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
 import { IoChevronBack } from "react-icons/io5";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchMessage } from "../../store/auth/chatlistSlice";
 
 const Inbox = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const selectConversation = useSelector(
     (state) => state.chatList.selectedConversation
   );
+
+  const messages = useSelector((state) => state.chatList.messages);
+
   const userData = useSelector((state) => state.auth.user);
+
+  useEffect(() => {
+    if (selectConversation?._id) {
+      dispatch(fetchMessage(selectConversation._id));
+    }
+  }, [selectConversation]);
 
   let other = null;
 
@@ -78,26 +89,34 @@ const Inbox = () => {
 
       {/* Messages Area */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-hide">
-        {[...Array(20)].map((_, index) => (
-          <div
-            key={index}
-            className={`flex ${
-              index % 2 === 0 ? "justify-start" : "justify-end"
-            }`}
-          >
-            <div
-              className={`px-4 py-2 rounded-lg text-sm max-w-xs md:max-w-md ${
-                index % 2 === 0
-                  ? "bg-white/90 text-gray-800"
-                  : "bg-gradient-to-r from-pink-400 to-sky-400 text-white shadow-md"
-              }`}
-            >
-              {index % 2 === 0
-                ? "Hi there! How are you doing today?"
-                : "I'm great! Just working on some new features for our app."}
-            </div>
+        {messages.length === 0 ? (
+          <div className="text-center text-gray-400 text-sm mt-10">
+            No messages yet.
           </div>
-        ))}
+        ) : (
+          messages.map((message) => {
+            const isSentByCurrentUser = message.sender === userData._id;
+
+            return (
+              <div
+                key={message._id}
+                className={`flex ${
+                  isSentByCurrentUser ? "justify-end" : "justify-start"
+                }`}
+              >
+                <div
+                  className={`px-4 py-2 rounded-lg text-sm max-w-xs md:max-w-md ${
+                    isSentByCurrentUser
+                      ? "bg-gradient-to-r from-pink-400 to-sky-400 text-white shadow-md"
+                      : "bg-white/90 text-gray-800"
+                  }`}
+                >
+                  {message.content}
+                </div>
+              </div>
+            );
+          })
+        )}
       </div>
 
       {/* Bottom Input */}

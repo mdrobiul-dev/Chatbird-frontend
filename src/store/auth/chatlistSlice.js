@@ -13,12 +13,24 @@ export const fetchChatlist = createAsyncThunk(
   }
 );
 
+export const fetchMessage = createAsyncThunk(
+  "/chat/fetchMessage",
+  async (conversationID) => {
+    try {
+      const res = await chatServices.getMessages(conversationID);
+      return res.success; 
+    } catch (error) {
+      throw error;
+    }
+  }
+);
 
 const chatlistSlice = createSlice({
   name: "chatList",
   initialState: {
     conversationList: null,
     selectedConversation: null,
+    messages : [],
     status: "active",
     error: null,
   },
@@ -39,7 +51,12 @@ const chatlistSlice = createSlice({
       .addCase(fetchChatlist.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error;
-      });
+      })
+
+      .addCase(fetchMessage.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.messages = action.payload; 
+      })
   },
 });
 

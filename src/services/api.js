@@ -52,5 +52,9 @@ export const chatServices = {
   createconversation : async (participantemail) => {
     const res = await api.post("/chat/createconversation", {participantemail});
     return res.data;
+  },
+  getMessages: async (conversationID) => {
+     const res = await api.get(`/chat/getmessage/${conversationID}`);
+     return res.data ;
   }
 };
