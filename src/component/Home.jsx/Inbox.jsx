@@ -43,7 +43,6 @@ const Inbox = () => {
     <div className="w-full sm:w-[65%] lg:w-[60%] flex flex-col bg-gradient-to-br from-pink-100/30 via-pink-50/30 to-sky-100/30 backdrop-blur-md border border-white/30 shadow-lg mt-1 self-start h-[98%] rounded-xl">
       {/* Top Header */}
       <div className="flex items-center justify-between bg-white/90 p-4 pt-9 rounded-t-xl shadow-sm">
-        {/* Left Side: Back Button + Avatar + Name */}
         <div className="flex items-center gap-3">
           <button
             className="block sm:hidden text-xl text-gray-600 hover:text-pink-500 transition-colors duration-200"
