@@ -9,10 +9,26 @@ import { IoMdSend } from "react-icons/io";
 import { PiDotsThreeVerticalBold } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
 import { IoChevronBack } from "react-icons/io5";
+import { useSelector } from "react-redux";
 
 const Inbox = () => {
   const navigate = useNavigate();
 
+  const selectConversation = useSelector(
+    (state) => state.chatList.selectedConversation
+  );
+  const userData = useSelector((state) => state.auth.user);
+
+  let other = null;
+
+  if (selectConversation) {
+    other =
+      selectConversation.creator._id === userData._id
+        ? selectConversation.participant
+        : selectConversation.creator;
+  }
+  console.log(other);
+  
   return (
     <div className="w-full sm:w-[65%] lg:w-[60%] flex flex-col bg-gradient-to-br from-pink-100/30 via-pink-50/30 to-sky-100/30 backdrop-blur-md border border-white/30 shadow-lg mt-1 self-start h-[98%] rounded-xl">
       {/* Top Header */}
@@ -27,14 +43,21 @@ const Inbox = () => {
           </button>
 
           <div className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-white/30 hover:border-pink-200 transition-all duration-300">
-              <img
-                src="/avatar_1.jpg"
-                alt="Avatar"
-                className="object-cover w-full h-full hover:scale-105 transition-transform duration-300"
-              />
+            <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-white/30 hover:border-pink-200 transition-all duration-300 bg-pink-400 flex items-center justify-center text-white font-bold text-lg">
+              {other?.avatar ? (
+                <img
+                  src={other?.avatar}
+                  alt={other?.fullName}
+                  className="object-cover w-full h-full"
+                />
+              ) : (
+                other?.fullName?.charAt(0).toUpperCase()
+              )}
             </div>
-            <span className="font-semibold text-gray-700">smokey_ricin</span>
+
+            <span className="font-semibold text-gray-700">
+              {other?.fullName}
+            </span>
           </div>
         </div>
 

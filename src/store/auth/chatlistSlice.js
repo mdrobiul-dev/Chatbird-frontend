@@ -18,10 +18,15 @@ const chatlistSlice = createSlice({
   name: "chatList",
   initialState: {
     conversationList: null,
+    selectedConversation: null,
     status: "active",
     error: null,
   },
-  reducers: {}, 
+  reducers: {
+     selectConversation: (state, actions)=>{
+     state.selectedConversation = actions.payload;
+     }
+  }, 
   extraReducers: (builder) => {
     builder
       .addCase(fetchChatlist.pending, (state) => {
@@ -38,5 +43,5 @@ const chatlistSlice = createSlice({
   },
 });
 
-// Export reducer
+export const {selectConversation} = chatlistSlice.actions;
 export default chatlistSlice.reducer;
