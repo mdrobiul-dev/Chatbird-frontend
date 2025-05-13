@@ -27,8 +27,8 @@ const Inbox = () => {
         ? selectConversation.participant
         : selectConversation.creator;
   }
- 
-    if (!selectConversation) {
+
+  if (!selectConversation) {
     return (
       <div className="w-full sm:w-[65%] lg:w-[60%] flex items-center justify-center bg-gradient-to-br from-pink-100/30 via-pink-50/30 to-sky-100/30 backdrop-blur-md border border-white/30 shadow-lg mt-1 self-start h-[98%] rounded-xl">
         <div className="text-center text-gray-500 text-lg font-medium p-6">
@@ -38,7 +38,6 @@ const Inbox = () => {
     );
   }
 
-  
   return (
     <div className="w-full sm:w-[65%] lg:w-[60%] flex flex-col bg-gradient-to-br from-pink-100/30 via-pink-50/30 to-sky-100/30 backdrop-blur-md border border-white/30 shadow-lg mt-1 self-start h-[98%] rounded-xl">
       <div className="flex items-center justify-between bg-white/90 p-4 pt-9 rounded-t-xl shadow-sm">
