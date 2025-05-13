@@ -6,7 +6,7 @@ export const fetchChatlist = createAsyncThunk(
   async () => {
     try {
       const res = await chatServices.conversationList();
-      return res.success; 
+      return res.success;
     } catch (error) {
       throw error;
     }
@@ -18,7 +18,7 @@ export const fetchMessage = createAsyncThunk(
   async (conversationID) => {
     try {
       const res = await chatServices.getMessages(conversationID);
-      return res.success; 
+      return res.success;
     } catch (error) {
       throw error;
     }
@@ -30,15 +30,15 @@ const chatlistSlice = createSlice({
   initialState: {
     conversationList: null,
     selectedConversation: null,
-    messages : [],
+    messages: [],
     status: "active",
     error: null,
   },
   reducers: {
-     selectConversation: (state, actions)=>{
-     state.selectedConversation = actions.payload;
-     }
-  }, 
+    selectConversation: (state, actions) => {
+      state.selectedConversation = actions.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchChatlist.pending, (state) => {
@@ -46,7 +46,7 @@ const chatlistSlice = createSlice({
       })
       .addCase(fetchChatlist.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.conversationList = action.payload; 
+        state.conversationList = action.payload;
       })
       .addCase(fetchChatlist.rejected, (state, action) => {
         state.status = "failed";
@@ -55,10 +55,10 @@ const chatlistSlice = createSlice({
 
       .addCase(fetchMessage.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.messages = action.payload; 
-      })
+        state.messages = action.payload;
+      });
   },
 });
 
-export const {selectConversation} = chatlistSlice.actions;
+export const { selectConversation } = chatlistSlice.actions;
 export default chatlistSlice.reducer;
