@@ -9,6 +9,7 @@ import { RiMenuLine } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { chatServices } from "../../services/api";
 import { fetchChatlist, selectConversation } from "../../store/auth/chatlistSlice";
+import ChatListLoading from "../Loading";
 
 const ChatList = ({ onMenuClick }) => {
   const [participantemail, setparticipantemail] = useState("");
@@ -49,9 +50,13 @@ const handleChatClick = (chatId) => {
   navigate(`/home/chat/${chatId}`); 
 };
   
-  if (status === "loading") {
-    return <p>loading........</p>;
-  }
+if (status === "loading") {
+  return (
+    <div className="w-full sm:w-[35%] lg:w-[30%] mt-5 sm:mt-10 pt-2 bg-gradient-to-br from-pink-100/50 via-pink-50/50 to-sky-100/50 backdrop-blur-md self-start pb-10 h-[95%] sm:h-[90%] flex flex-col rounded-xl border border-white/30 shadow-lg">
+      <ChatListLoading />
+    </div>
+  );
+}
 
   if (!conversationList || conversationList.length === 0) {
     return (

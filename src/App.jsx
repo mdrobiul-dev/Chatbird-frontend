@@ -4,12 +4,14 @@ import Login from "./pages/Login";
 import ResponsiveHome from "./pages/ResponsiveHome";
 import Emailvariefy from "./pages/Emailvariefy";
 import Layout from "./component/Home.jsx/Layout/Layout";
+import ChatListLoading from "./component/Loading";
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="/loading" element={<ChatListLoading />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Registration />} />
         <Route path="/veriefy-email" element={<Emailvariefy />} />
