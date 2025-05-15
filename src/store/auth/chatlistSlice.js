@@ -8,7 +8,7 @@ export const fetchChatlist = createAsyncThunk(
       const res = await chatServices.conversationList();
       return res.success;
     } catch (error) {
-      throw error;
+      return Promise.reject(error);
     }
   }
 );
@@ -20,10 +20,24 @@ export const fetchMessage = createAsyncThunk(
       const res = await chatServices.getMessages(conversationID);
       return res.success;
     } catch (error) {
-      throw error;
+       return Promise.reject(error);
     }
   }
 );
+
+export const sendMessages = createAsyncThunk(
+  "/chat/sendMessage",
+  async(data) => {
+    
+    try {
+      const res = await chatServices.sendMessage(data)
+      return res
+
+    } catch (error) {
+       return Promise.reject(error);
+    }
+  }
+)
 
 const chatlistSlice = createSlice({
   name: "chatList",
@@ -38,6 +52,9 @@ const chatlistSlice = createSlice({
     selectConversation: (state, actions) => {
       state.selectedConversation = actions.payload;
     },
+    newMessage : (state, actions) => {
+      state.messages.push(actions.payload)
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -60,5 +77,5 @@ const chatlistSlice = createSlice({
   },
 });
 
-export const { selectConversation } = chatlistSlice.actions;
+export const { selectConversation, newMessage } = chatlistSlice.actions;
 export default chatlistSlice.reducer;

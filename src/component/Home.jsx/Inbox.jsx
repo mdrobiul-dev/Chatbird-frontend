@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   IoCallOutline,
   IoVideocamOutline,
@@ -10,9 +10,10 @@ import { PiDotsThreeVerticalBold } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
 import { IoChevronBack } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchMessage } from "../../store/auth/chatlistSlice";
+import { fetchMessage, sendMessages } from "../../store/auth/chatlistSlice";
 
 const Inbox = () => {
+  const [content, setcontent] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -38,6 +39,13 @@ const Inbox = () => {
         ? selectConversation.participant
         : selectConversation.creator;
   }
+
+  const hansdleMessageSend = (e) => {
+    e.preventDefault();
+   
+    dispatch(sendMessages({reciverId: other._id, content, conversationId: selectConversation._id}))
+    setcontent("");
+  };
 
   if (!selectConversation) {
     return (
@@ -120,18 +128,26 @@ const Inbox = () => {
       </div>
 
       {/* Bottom Input */}
-      <div className="p-4 flex items-center gap-3  bg-gradient-to-br from-pink-100/50 via-pink-50/50 to-sky-100/50 backdrop-blur-md rounded-b-xl">
+      <form
+        onSubmit={hansdleMessageSend}
+        className="p-4 flex items-center gap-3  bg-gradient-to-br from-pink-100/50 via-pink-50/50 to-sky-100/50 backdrop-blur-md rounded-b-xl"
+      >
         <input
+          onChange={(e) => setcontent(e.target.value)}
           type="text"
+          value={content}
           placeholder="Type your message..."
           className="flex-1 bg-white/90 backdrop-blur-md border border-gray-200 rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-transparent transition-all duration-200"
         />
         <div className="flex items-center gap-2 text-xl">
           <MdOutlineSentimentNeutral className="cursor-pointer text-sky-500 hover:text-sky-600 transition-colors duration-200" />
           <IoImageOutline className="cursor-pointer text-sky-500 hover:text-sky-600 transition-colors duration-200" />
-          <IoMdSend className="cursor-pointer text-pink-500 hover:text-pink-600 transition-colors duration-200" />
+          <button type="submit">
+            {" "}
+            <IoMdSend className="cursor-pointer text-pink-500 hover:text-pink-600 transition-colors duration-200" />
+          </button>
         </div>
-      </div>
+      </form>
     </div>
   );
 };
