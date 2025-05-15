@@ -59,9 +59,13 @@ export const chatServices = {
     const res = await api.get(`/chat/getmessage/${conversationID}`);
     return res.data;
   },
-  sendMessage : async (data) => {
-    const {reciverId, content, conversationId} = data
-    const res = await api.post("/chat/sendmessage", { reciverId, content, conversationId})
-    return res.data
-  }
+  sendMessage: async (data) => {
+    const { reciverId, content, conversationId } = data;
+    const res = await api.post("/chat/sendmessage", {
+      reciverId,
+      content,
+      conversationId,
+    });
+    return res.data;
+  },
 };
