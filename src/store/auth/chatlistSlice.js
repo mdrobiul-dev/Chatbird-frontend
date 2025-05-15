@@ -20,24 +20,22 @@ export const fetchMessage = createAsyncThunk(
       const res = await chatServices.getMessages(conversationID);
       return res.success;
     } catch (error) {
-       return Promise.reject(error);
+      return Promise.reject(error);
     }
   }
 );
 
 export const sendMessages = createAsyncThunk(
   "/chat/sendMessage",
-  async(data) => {
-    
+  async (data) => {
     try {
-      const res = await chatServices.sendMessage(data)
-      return res
-
+      const res = await chatServices.sendMessage(data);
+      return res;
     } catch (error) {
-       return Promise.reject(error);
+      return Promise.reject(error);
     }
   }
-)
+);
 
 const chatlistSlice = createSlice({
   name: "chatList",
@@ -52,9 +50,9 @@ const chatlistSlice = createSlice({
     selectConversation: (state, actions) => {
       state.selectedConversation = actions.payload;
     },
-    newMessage : (state, actions) => {
-      state.messages.push(actions.payload)
-    }
+    newMessage: (state, actions) => {
+      state.messages.push(actions.payload);
+    },
   },
   extraReducers: (builder) => {
     builder
