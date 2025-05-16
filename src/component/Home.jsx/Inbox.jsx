@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { IoChevronBack } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMessage, sendMessages } from "../../store/auth/chatlistSlice";
+import { initSoket } from "../../services/soket";
 
 const Inbox = () => {
   const [content, setcontent] = useState("");
@@ -30,6 +31,10 @@ const Inbox = () => {
       dispatch(fetchMessage(selectConversation._id));
     }
   }, [selectConversation]);
+
+  useEffect(() => {
+    initSoket()
+  },[])
 
   let other = null;
 

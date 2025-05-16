@@ -2,7 +2,7 @@ const ChatListLoading = () => {
   const skeletonItems = Array(6).fill(null);
 
   return (
-     <div className="p-3 space-y-3">
+    <div className="p-3 space-y-3 opacity-70"> {/* Added opacity-80 here */}
       {skeletonItems.map((_, idx) => (
         <div
           key={idx}
