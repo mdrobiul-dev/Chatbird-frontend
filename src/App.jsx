@@ -5,8 +5,13 @@ import ResponsiveHome from "./pages/ResponsiveHome";
 import Emailvariefy from "./pages/Emailvariefy";
 import Layout from "./component/Home.jsx/Layout/Layout";
 import ChatListLoading from "./component/Loading";
+import { useEffect } from "react";
+import { initSocket } from "./services/soket";
 
 function App() {
+  useEffect(() => {
+    initSocket()
+  },[])
   return (
     <Router>
       <Routes>

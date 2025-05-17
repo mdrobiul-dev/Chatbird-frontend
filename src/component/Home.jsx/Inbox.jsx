@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   IoCallOutline,
   IoVideocamOutline,
@@ -11,19 +11,17 @@ import { useNavigate } from "react-router-dom";
 import { IoChevronBack } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMessage, sendMessages } from "../../store/auth/chatlistSlice";
-import { initSoket } from "../../services/soket";
 
 const Inbox = () => {
   const [content, setcontent] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const messageEndRef = useRef(null); // 👈 Ref for auto-scroll
 
   const selectConversation = useSelector(
     (state) => state.chatList.selectedConversation
   );
-
   const messages = useSelector((state) => state.chatList.messages);
-
   const userData = useSelector((state) => state.auth.user);
 
   useEffect(() => {
@@ -33,8 +31,11 @@ const Inbox = () => {
   }, [selectConversation]);
 
   useEffect(() => {
-    initSoket()
-  },[])
+    // 👇 Auto scroll to bottom on new messages
+    if (messageEndRef.current) {
+      messageEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
 
   let other = null;
 
@@ -45,10 +46,16 @@ const Inbox = () => {
         : selectConversation.creator;
   }
 
-  const hansdleMessageSend = (e) => {
+  const handleMessageSend = (e) => {
     e.preventDefault();
-   
-    dispatch(sendMessages({reciverId: other._id, content, conversationId: selectConversation._id}))
+
+    dispatch(
+      sendMessages({
+        reciverId: other._id,
+        content,
+        conversationId: selectConversation._id,
+      })
+    );
     setcontent("");
   };
 
@@ -61,7 +68,6 @@ const Inbox = () => {
       </div>
     );
   }
-
   return (
     <div className="w-full sm:w-[65%] lg:w-[60%] flex flex-col bg-gradient-to-br from-pink-100/30 via-pink-50/30 to-sky-100/30 backdrop-blur-md border border-white/30 shadow-lg mt-1 self-start h-[98%] rounded-xl">
       <div className="flex items-center justify-between bg-white/90 p-4 pt-9 rounded-t-xl shadow-sm">
@@ -92,7 +98,6 @@ const Inbox = () => {
           </div>
         </div>
 
-        {/* Right Side: Call & More Options */}
         <div className="flex items-center gap-4 text-xl">
           <IoCallOutline className="cursor-pointer text-sky-500 hover:text-sky-600 transition-colors duration-200" />
           <IoVideocamOutline className="cursor-pointer text-sky-500 hover:text-sky-600 transition-colors duration-200" />
@@ -107,35 +112,38 @@ const Inbox = () => {
             No messages yet.
           </div>
         ) : (
-          messages.map((message) => {
-            const isSentByCurrentUser = message.sender === userData._id;
+          <>
+            {messages.map((message) => {
+              const isSentByCurrentUser = message.sender === userData._id;
 
-            return (
-              <div
-                key={message._id}
-                className={`flex ${
-                  isSentByCurrentUser ? "justify-end" : "justify-start"
-                }`}
-              >
+              return (
                 <div
-                  className={`px-4 py-2 rounded-lg text-sm max-w-xs md:max-w-md ${
-                    isSentByCurrentUser
-                      ? "bg-gradient-to-r from-pink-400 to-sky-400 text-white shadow-md"
-                      : "bg-white/90 text-gray-800"
+                  key={message._id}
+                  className={`flex ${
+                    isSentByCurrentUser ? "justify-end" : "justify-start"
                   }`}
                 >
-                  {message.content}
+                  <div
+                    className={`px-4 py-2 rounded-lg text-sm max-w-xs md:max-w-md ${
+                      isSentByCurrentUser
+                        ? "bg-gradient-to-r from-pink-400 to-sky-400 text-white shadow-md"
+                        : "bg-white/90 text-gray-800"
+                    }`}
+                  >
+                    {message.content}
+                  </div>
                 </div>
-              </div>
-            );
-          })
+              );
+            })}
+            <div ref={messageEndRef} /> {/* 👈 Scroll anchor */}
+          </>
         )}
       </div>
 
       {/* Bottom Input */}
       <form
-        onSubmit={hansdleMessageSend}
-        className="p-4 flex items-center gap-3  bg-gradient-to-br from-pink-100/50 via-pink-50/50 to-sky-100/50 backdrop-blur-md rounded-b-xl"
+        onSubmit={handleMessageSend}
+        className="p-4 flex items-center gap-3 bg-gradient-to-br from-pink-100/50 via-pink-50/50 to-sky-100/50 backdrop-blur-md rounded-b-xl"
       >
         <input
           onChange={(e) => setcontent(e.target.value)}
@@ -148,7 +156,6 @@ const Inbox = () => {
           <MdOutlineSentimentNeutral className="cursor-pointer text-sky-500 hover:text-sky-600 transition-colors duration-200" />
           <IoImageOutline className="cursor-pointer text-sky-500 hover:text-sky-600 transition-colors duration-200" />
           <button type="submit">
-            {" "}
             <IoMdSend className="cursor-pointer text-pink-500 hover:text-pink-600 transition-colors duration-200" />
           </button>
         </div>
@@ -158,3 +165,4 @@ const Inbox = () => {
 };
 
 export default Inbox;
+
