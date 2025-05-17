@@ -10,8 +10,8 @@ import { initSocket } from "./services/soket";
 
 function App() {
   useEffect(() => {
-    initSocket()
-  },[])
+    initSocket();
+  }, []);
   return (
     <Router>
       <Routes>
