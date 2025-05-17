@@ -8,7 +8,10 @@ import { ImCross } from "react-icons/im";
 import { RiMenuLine } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { chatServices } from "../../services/api";
-import { fetchChatlist, selectConversation } from "../../store/auth/chatlistSlice";
+import {
+  fetchChatlist,
+  selectConversation,
+} from "../../store/auth/chatlistSlice";
 import ChatListLoading from "../Loading";
 
 const ChatList = ({ onMenuClick }) => {
@@ -17,46 +20,48 @@ const ChatList = ({ onMenuClick }) => {
   const [showInputBox, setShowInputBox] = useState(false);
   const navigate = useNavigate();
   const userData = useSelector((state) => state.auth.user);
-  const {conversationList, status} = useSelector((state) => state.chatList)
+  const { conversationList, status } = useSelector((state) => state.chatList);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchChatlist());
-  },[])
+  }, []);
 
- const handleAdd = async (e) => {
-  try {
-    const res = await chatServices.createconversation(participantemail);
-    setShowInputBox(false);
-    setparticipantemail("");
-    dispatch(fetchChatlist());
+  const handleAdd = async (e) => {
+    try {
+      const res = await chatServices.createconversation(participantemail);
+      setShowInputBox(false);
+      setparticipantemail("");
+      dispatch(fetchChatlist());
 
-    toast.success("Conversation created successfully!");
-  } catch (error) {
-    const message =
-      error?.response?.data?.error ||
-      error?.response?.data?.message ||
-      error?.message ||
-      "Something went wrong!";
-    toast.error(message);
-    console.log(message);
+      toast.success("Conversation created successfully!");
+    } catch (error) {
+      const message =
+        error?.response?.data?.error ||
+        error?.response?.data?.message ||
+        error?.message ||
+        "Something went wrong!";
+      toast.error(message);
+      console.log(message);
+    }
+  };
+
+  const handleChatClick = (chatId) => {
+    const filteredConversations = conversationList.find(
+      (c) => c._id === chatId
+    );
+    dispatch(selectConversation(filteredConversations));
+    navigate(`/home/chat/${chatId}`);
+  };
+
+  if (status === "loading") {
+    return (
+      <div className="w-full sm:w-[35%] lg:w-[30%] mt-5 sm:mt-10 pt-2 bg-gradient-to-br from-pink-100/50 via-pink-50/50 to-sky-100/50 backdrop-blur-md self-start pb-10 h-[95%] sm:h-[90%] flex flex-col rounded-xl border border-white/30 shadow-lg">
+        <ChatListLoading />
+      </div>
+    );
   }
-};
-
-const handleChatClick = (chatId) => {
-  const filteredConversations = conversationList.find((c) => c._id === chatId);
-  dispatch(selectConversation(filteredConversations)); 
-  navigate(`/home/chat/${chatId}`); 
-};
-  
-if (status === "loading") {
-  return (
-    <div className="w-full sm:w-[35%] lg:w-[30%] mt-5 sm:mt-10 pt-2 bg-gradient-to-br from-pink-100/50 via-pink-50/50 to-sky-100/50 backdrop-blur-md self-start pb-10 h-[95%] sm:h-[90%] flex flex-col rounded-xl border border-white/30 shadow-lg">
-      <ChatListLoading />
-    </div>
-  );
-}
 
   if (!conversationList || conversationList.length === 0) {
     return (
@@ -75,7 +80,6 @@ if (status === "loading") {
     return other.fullName.toLowerCase().includes(search.toLowerCase());
   });
 
-  
   return (
     <div className="w-full sm:w-[35%] lg:w-[30%] mt-5 sm:mt-10 pt-2 bg-gradient-to-br from-pink-100/50 via-pink-50/50 to-sky-100/50 backdrop-blur-md self-start pb-10 h-[95%] sm:h-[90%] flex flex-col rounded-xl border border-white/30 shadow-lg">
       <ToastContainer position="top-left" autoClose={5000} theme="dark" />
