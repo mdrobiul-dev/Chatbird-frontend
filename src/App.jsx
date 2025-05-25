@@ -7,6 +7,7 @@ import Layout from "./component/Home.jsx/Layout/Layout";
 import ChatListLoading from "./component/Loading";
 import { useEffect } from "react";
 import { initSocket } from "./services/soket";
+import Profile from "./pages/Profile";
 
 function App() {
   useEffect(() => {
@@ -24,6 +25,7 @@ function App() {
         <Route path="/home" element={<Layout />}>
           <Route index element={<ResponsiveHome />} />
           <Route path="chat/:id" element={<ResponsiveHome />} />
+          <Route path="/home/profile" element={<Profile />} />
         </Route>
 
         <Route path="*" element={<Login />} />
