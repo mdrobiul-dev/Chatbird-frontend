@@ -60,4 +60,3 @@ export default Profile;
 //     </div>
 //   </div>
 // </div>
-  
