@@ -4,13 +4,14 @@ import {
   IoVideocamOutline,
   IoImageOutline,
 } from "react-icons/io5";
+import { RxCross2 } from "react-icons/rx";
 import { MdOutlineSentimentNeutral } from "react-icons/md";
 import { IoMdSend } from "react-icons/io";
 import { PiDotsThreeVerticalBold } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
 import { IoChevronBack } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchMessage, sendMessages } from "../../store/auth/chatlistSlice";
+import { clearConversation, fetchMessage, sendMessages } from "../../store/auth/chatlistSlice";
 
 const Inbox = () => {
   const [content, setcontent] = useState("");
@@ -69,7 +70,8 @@ const Inbox = () => {
     );
   }
   return (
-    <div className="w-full sm:w-[65%] lg:w-[60%] flex flex-col bg-gradient-to-br from-pink-100/30 via-pink-50/30 to-sky-100/30 backdrop-blur-md border border-white/30 shadow-lg mt-1 self-start h-[98%] rounded-xl">
+    <div className="relative w-full sm:w-[65%] lg:w-[60%] flex flex-col bg-gradient-to-br from-pink-100/30 via-pink-50/30 to-sky-100/30 backdrop-blur-md border border-white/30 shadow-lg mt-1 self-start h-[98%] rounded-xl">
+      <span onClick={() => dispatch(clearConversation())} className="hidden lg:block absolute cursor-pointer top-3 right-4 text-pink-600 hover:text-pink-800 text-xl transition-all duration-200"><RxCross2 /></span>
       <div className="flex items-center justify-between bg-white/90 p-4 pt-9 rounded-t-xl shadow-sm">
         <div className="flex items-center gap-3">
           <button

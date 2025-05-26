@@ -50,6 +50,9 @@ const chatlistSlice = createSlice({
     selectConversation: (state, actions) => {
       state.selectedConversation = actions.payload;
     },
+    clearConversation: (state, actions) => {
+       state.selectedConversation = null
+    },
     newMessage: (state, actions) => {
       state.messages.push(actions.payload);
     },
@@ -75,5 +78,5 @@ const chatlistSlice = createSlice({
   },
 });
 
-export const { selectConversation, newMessage } = chatlistSlice.actions;
+export const { selectConversation, newMessage, clearConversation } = chatlistSlice.actions;
 export default chatlistSlice.reducer;
