@@ -54,4 +54,3 @@ const Profile = ({ onBack }) => {
 };
 
 export default Profile;
-       
