@@ -2,11 +2,10 @@ import { RxCross2 } from "react-icons/rx";
 import { useSelector } from "react-redux";
 
 const Profile = ({ onBack }) => {
+  const userData = useSelector((state) => state.auth.user);
+  console.log(userData);
 
-   const userData = useSelector((state) => state.auth.user);
-   console.log(userData);
-   
-     const getInitial = (name) => {
+  const getInitial = (name) => {
     if (!name) return "";
     return name.charAt(0).toUpperCase();
   };
@@ -26,13 +25,13 @@ const Profile = ({ onBack }) => {
         <div className="w-32 h-32 md:w-40 md:h-38 rounded-full overflow-hidden border-3 border-pink-300 shadow-md">
           {userData?.avatar ? (
             <img
-            src={userData.avatar}
-            alt="Profile"
-            className="w-full h-full object-cover"
-          /> ) : (
-             getInitial(userData.fullName)
-          )
-          }
+              src={userData.avatar}
+              alt="Profile"
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            getInitial(userData.fullName)
+          )}
         </div>
 
         {/* Info */}
@@ -41,16 +40,12 @@ const Profile = ({ onBack }) => {
             {userData.fullName}
           </h2>
           {userData?.bio ? (
+            <p className="text-gray-700 font-medium mb-2">{userData?.bio}</p>
+          ) : (
             <p className="text-gray-700 font-medium mb-2">
-            {userData?.bio}
-          </p>
-          )
-         : (
-          <p className="text-gray-700 font-medium mb-2">
-            write your bio here
-          </p>
-         )
-          }
+              write your bio here
+            </p>
+          )}
           <p className="text-sm text-gray-600">{userData.email}</p>
         </div>
       </div>
@@ -59,4 +54,3 @@ const Profile = ({ onBack }) => {
 };
 
 export default Profile;
-
