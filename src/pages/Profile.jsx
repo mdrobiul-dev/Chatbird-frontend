@@ -55,7 +55,7 @@ const Profile = ({ onBack }) => {
         </div>
       </div>
     </section>
-  );    
+  );       
 };
 
 export default Profile;
