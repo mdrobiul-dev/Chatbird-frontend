@@ -1,9 +1,10 @@
+import { useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import { useSelector } from "react-redux";
 
 const Profile = ({ onBack }) => {
   const userData = useSelector((state) => state.auth.user);
-  console.log(userData);
+  const [name, setName] = useState(userData.fullName);
 
   const getInitial = (name) => {
     if (!name) return "";
@@ -36,9 +37,13 @@ const Profile = ({ onBack }) => {
 
         {/* Info */}
         <div className="text-center md:text-left">
-          <h2 className="text-3xl font-bold text-pink-600 mb-2">
-            {userData.fullName}
-          </h2>
+          <input
+            value={name}
+            type="text"
+            className="ml-1 text-3xl font-bold text-pink-600 mb-2 hover:outline-none hover:ring-2 hover:ring-pink-300 hover:border-transparent hover:transition-all hover:duration-200 focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-transparent transition-all duration-200 cursor-pointer"
+            onChange={(e) => setName(e.target.value)}
+          />
+
           {userData?.bio ? (
             <p className="text-gray-700 font-medium mb-2">{userData?.bio}</p>
           ) : (
@@ -50,7 +55,7 @@ const Profile = ({ onBack }) => {
         </div>
       </div>
     </section>
-  );
+  );    
 };
 
 export default Profile;
