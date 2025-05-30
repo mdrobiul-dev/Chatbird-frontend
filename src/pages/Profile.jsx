@@ -14,19 +14,19 @@ const Profile = ({ onBack }) => {
     password: "",
   });
   const [isEditing, setIsEditing] = useState(false);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const toggleEdit = () => setIsEditing(!isEditing);
 
   const onSave = async (e) => {
     try {
-      const {updatedUser, message} = await authServices.update(
+      const { updatedUser, message } = await authServices.update(
         formData.fullName,
         formData.password
       );
-      dispatch(loggedUser(updatedUser))
-      localStorage.setItem("loggedUser", JSON.stringify(updatedUser))
+      dispatch(loggedUser(updatedUser));
+      localStorage.setItem("loggedUser", JSON.stringify(updatedUser));
       toast.success(message);
-      setIsEditing(false)
+      setIsEditing(false);
     } catch (error) {
       const message =
         error?.response?.data?.error ||
