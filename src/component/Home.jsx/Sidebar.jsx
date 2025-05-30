@@ -10,16 +10,16 @@ import { useNavigate } from "react-router-dom";
 
 function Sidebar({ onClose, onAvatarClick }) {
   const userData = useSelector((state) => state.auth.user);
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const getInitial = (name) => {
     if (!name) return "";
     return name.charAt(0).toUpperCase();
   };
- const logOut = () => {
+  const logOut = () => {
     dispatch(loggedOut());
-    navigate("/login")
- }
+    navigate("/login");
+  };
   return (
     <div className="w-full lg:w-[10vw] mt-20 flex flex-col self-start rounded-lg md:bg-gradient-to-br from-pink-300/20 via-pink-200/20 to-sky-300/20 md:backdrop-blur-md p-4 md:border md:border-white/20 md:shadow-lg">
       {onClose && (
@@ -77,7 +77,7 @@ function Sidebar({ onClose, onAvatarClick }) {
         </h2>
       </div>
       <a
-         onClick={logOut}
+        onClick={logOut}
         className="mt-10 m-auto bg-gradient-to-br from-pink-400 to-sky-400 hover:from-pink-500 hover:to-sky-500 rounded-full p-2.5 cursor-pointer mb-12 shadow-md hover:shadow-lg transition-all duration-300"
       >
         <MdLogout className="text-2xl text-white" />
@@ -87,5 +87,3 @@ function Sidebar({ onClose, onAvatarClick }) {
 }
 
 export default Sidebar;
-
-
