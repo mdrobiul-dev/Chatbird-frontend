@@ -6,6 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { authServices } from "../services/api";
 import { loggedUser } from "../store/auth/authSlice";
 
+
 const Profile = ({ onBack }) => {
   const userData = useSelector((state) => state.auth.user);
   const [formData, setFormData] = useState({
