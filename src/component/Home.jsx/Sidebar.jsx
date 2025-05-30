@@ -15,7 +15,7 @@ function Sidebar({ onClose, onAvatarClick }) {
   const getInitial = (name) => {
     if (!name) return "";
     return name.charAt(0).toUpperCase();
-  };
+  };  
   const logOut = () => {
     dispatch(loggedOut());
     navigate("/login");
