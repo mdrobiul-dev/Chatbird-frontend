@@ -19,7 +19,7 @@ function Sidebar({ onClose, onAvatarClick }) {
   const logOut = () => {
     dispatch(loggedOut());
     navigate("/login");
-  };
+  };  
   return (
     <div className="w-full lg:w-[10vw] mt-20 flex flex-col self-start rounded-lg md:bg-gradient-to-br from-pink-300/20 via-pink-200/20 to-sky-300/20 md:backdrop-blur-md p-4 md:border md:border-white/20 md:shadow-lg">
       {onClose && (
