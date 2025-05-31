@@ -17,7 +17,7 @@ const Inbox = () => {
   const [content, setcontent] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const messageEndRef = useRef(null); // 👈 Ref for auto-scroll
+  const messageEndRef = useRef(null); //  Ref for auto-scroll
 
   const selectConversation = useSelector(
     (state) => state.chatList.selectedConversation
@@ -32,7 +32,7 @@ const Inbox = () => {
   }, [selectConversation]);
 
   useEffect(() => {
-    // 👇 Auto scroll to bottom on new messages
+    //  Auto scroll to bottom on new messages
     if (messageEndRef.current) {
       messageEndRef.current.scrollIntoView({ behavior: "smooth" });
     }

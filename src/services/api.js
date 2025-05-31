@@ -42,10 +42,14 @@ export const authServices = {
     }
     return res.data;
   },
-  update : async (fullName, password) => {
-    const res = await api.post("/auth/profileupdate", {fullName, password})
-    return res.data
-  }
+  update: async (formData) => {
+  const res = await api.post("/auth/profileupdate", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  return res.data;
+}
 };
 
 export const chatServices = {

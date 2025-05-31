@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import { authServices } from "../services/api";
 import { loggedUser } from "../store/auth/authSlice";
-
+import { MdOutlineCloudUpload } from "react-icons/md";
 
 const Profile = ({ onBack }) => {
   const userData = useSelector((state) => state.auth.user);
@@ -15,27 +15,65 @@ const Profile = ({ onBack }) => {
     password: "",
   });
   const [isEditing, setIsEditing] = useState(false);
+  const [avatarFile, setAvatarFile] = useState(null); // committed avatar file
+  const [tempAvatarFile, setTempAvatarFile] = useState(null); // temporary preview during edit
+  const [isUploading, setIsUploading] = useState(false);
   const dispatch = useDispatch();
-  const toggleEdit = () => setIsEditing(!isEditing);
 
-  const onSave = async (e) => {
+  const toggleEdit = () => {
+    setIsEditing(!isEditing);
+    if (!isEditing) {
+      // enter edit mode
+      setTempAvatarFile(null);
+    } else {
+      // cancel editing
+      setFormData({
+        fullName: userData.fullName,
+        bio: userData.bio || "",
+        password: "",
+      });
+      setTempAvatarFile(null);
+    }
+  };
+
+  const handleAvatarChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setTempAvatarFile(file);
+    }
+  };
+
+  const avatarPreview = isEditing
+    ? tempAvatarFile
+      ? URL.createObjectURL(tempAvatarFile)
+      : userData?.avatar
+    : userData?.avatar;
+
+  const onSave = async () => {
     try {
-      const { updatedUser, message } = await authServices.update(
-        formData.fullName,
-        formData.password
-      );
+      setIsUploading(true);
+      const form = new FormData();
+      form.append("fullName", formData.fullName);
+      if (formData.password) form.append("password", formData.password);
+      if (tempAvatarFile) form.append("avatar", tempAvatarFile);
+
+      const { updatedUser, message } = await authServices.update(form);
       dispatch(loggedUser(updatedUser));
       localStorage.setItem("loggedUser", JSON.stringify(updatedUser));
       toast.success(message);
       setIsEditing(false);
+      setAvatarFile(tempAvatarFile); // commit avatar
+      setTempAvatarFile(null);
     } catch (error) {
       const message =
         error?.response?.data?.error ||
         error?.response?.data?.message ||
         error?.message ||
         "Something went wrong!";
-      console.log(message);
+      console.error(message);
       toast.error(message);
+    } finally {
+      setIsUploading(false);
     }
   };
 
@@ -43,20 +81,8 @@ const Profile = ({ onBack }) => {
 
   return (
     <section className="h-screen w-full flex items-center justify-center px-4 bg-gradient-to-br from-pink-300 via-pink-200 to-sky-300 bg-opacity-90 backdrop-blur-sm">
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick={false}
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-      />
+      <ToastContainer position="top-right" autoClose={5000} theme="dark" />
       <div className="relative w-full max-w-2xl p-6 rounded-2xl shadow-xl bg-white/30 backdrop-blur-md border border-white/30 flex flex-col gap-6">
-        {/* Back Button */}
         <button
           onClick={onBack}
           className="absolute top-4 right-4 text-rose-600 hover:text-rose-800 text-2xl transition"
@@ -64,7 +90,6 @@ const Profile = ({ onBack }) => {
           <RxCross2 />
         </button>
 
-        {/* Edit Button */}
         <button
           onClick={toggleEdit}
           className="absolute top-4 right-14 text-rose-600 hover:text-rose-800 text-xl transition"
@@ -72,22 +97,39 @@ const Profile = ({ onBack }) => {
           <FiEdit />
         </button>
 
-        {/* Profile Info */}
         <div className="flex flex-col md:flex-row gap-6 items-center w-full">
-          {/* Avatar */}
-          <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-rose-300 shadow-md flex items-center justify-center bg-white text-rose-600 text-4xl font-bold">
-            {userData?.avatar ? (
+          <div className="relative w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-rose-300 shadow-md flex items-center justify-center bg-white text-rose-600 text-4xl font-bold">
+            {avatarPreview ? (
               <img
-                src={userData.avatar}
+                src={avatarPreview}
                 alt="Avatar"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover transition"
               />
             ) : (
               getInitial(userData.fullName)
             )}
+
+            {/* Upload icon (only when editing & no preview selected) */}
+            {isEditing && !tempAvatarFile && (
+              <label className="absolute inset-0 flex items-center justify-center bg-black/10 hover:bg-black/20 cursor-pointer transition rounded-full">
+                <MdOutlineCloudUpload className="text-3xl text-white drop-shadow" />
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleAvatarChange}
+                  className="hidden"
+                />
+              </label>
+            )}
+
+            {/* Uploading overlay */}
+            {isUploading && (
+              <div className="absolute inset-0 bg-white/60 flex items-center justify-center z-10">
+                <div className="w-6 h-6 border-4 border-rose-300 border-t-transparent rounded-full animate-spin"></div>
+              </div>
+            )}
           </div>
 
-          {/* Info */}
           <div className="flex-1 text-center md:text-left space-y-2">
             <input
               readOnly={!isEditing}
@@ -133,17 +175,22 @@ const Profile = ({ onBack }) => {
           </div>
         </div>
 
-        {/* Buttons */}
         {isEditing && (
           <div className="flex gap-4 justify-center md:justify-end w-full">
             <button
               onClick={onSave}
-              className="text-rose-600 hover:text-rose-800 text-lg transition"
+              disabled={isUploading}
+              className={`text-lg transition ${
+                isUploading
+                  ? "text-gray-400 cursor-not-allowed"
+                  : "text-rose-600 hover:text-rose-800"
+              }`}
             >
-              Save
+              {isUploading ? "Saving..." : "Save"}
             </button>
             <button
               onClick={toggleEdit}
+              disabled={isUploading}
               className="text-rose-600 hover:text-rose-800 text-lg transition"
             >
               Cancel
@@ -156,3 +203,7 @@ const Profile = ({ onBack }) => {
 };
 
 export default Profile;
+
+
+
+

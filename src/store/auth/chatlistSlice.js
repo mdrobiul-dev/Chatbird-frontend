@@ -53,9 +53,23 @@ const chatlistSlice = createSlice({
     clearConversation: (state, actions) => {
        state.selectedConversation = null
     },
-    newMessage: (state, actions) => {
-      state.messages.push(actions.payload);
-    },
+    newMessage: (state, action) => {
+  const newMsg = action.payload;
+  state.messages.push(newMsg);
+
+  // Update the corresponding conversation's lastmessage
+  const convIndex = state.conversationList?.findIndex(
+    (conv) => conv._id === newMsg.conversation
+  );
+
+  if (convIndex !== -1) {
+    state.conversationList[convIndex].lastmessage = newMsg;
+
+    // Optionally, move the updated conversation to the top
+    const updatedConversation = state.conversationList.splice(convIndex, 1)[0];
+    state.conversationList.unshift(updatedConversation);
+  }
+}
   },
   extraReducers: (builder) => {
     builder
