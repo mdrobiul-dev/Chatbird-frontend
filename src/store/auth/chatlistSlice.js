@@ -51,25 +51,28 @@ const chatlistSlice = createSlice({
       state.selectedConversation = actions.payload;
     },
     clearConversation: (state, actions) => {
-       state.selectedConversation = null
+      state.selectedConversation = null;
     },
     newMessage: (state, action) => {
-  const newMsg = action.payload;
-  state.messages.push(newMsg);
+      const newMsg = action.payload;
+      state.messages.push(newMsg);
 
-  // Update the corresponding conversation's lastmessage
-  const convIndex = state.conversationList?.findIndex(
-    (conv) => conv._id === newMsg.conversation
-  );
+      // Update the corresponding conversation's lastmessage
+      const convIndex = state.conversationList?.findIndex(
+        (conv) => conv._id === newMsg.conversation
+      );
 
-  if (convIndex !== -1) {
-    state.conversationList[convIndex].lastmessage = newMsg;
+      if (convIndex !== -1) {
+        state.conversationList[convIndex].lastmessage = newMsg;
 
-    // Optionally, move the updated conversation to the top
-    const updatedConversation = state.conversationList.splice(convIndex, 1)[0];
-    state.conversationList.unshift(updatedConversation);
-  }
-}
+        // Optionally, move the updated conversation to the top
+        const updatedConversation = state.conversationList.splice(
+          convIndex,
+          1
+        )[0];
+        state.conversationList.unshift(updatedConversation);
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -92,5 +95,6 @@ const chatlistSlice = createSlice({
   },
 });
 
-export const { selectConversation, newMessage, clearConversation } = chatlistSlice.actions;
+export const { selectConversation, newMessage, clearConversation } =
+  chatlistSlice.actions;
 export default chatlistSlice.reducer;
