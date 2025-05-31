@@ -196,14 +196,10 @@ const Profile = ({ onBack }) => {
               Cancel
             </button>
           </div>
-        )}
+        )}  
       </div>
     </section>
   );
 };
 
 export default Profile;
-
-
-
-
