@@ -43,21 +43,26 @@ const chatlistSlice = createSlice({
     conversationList: null,
     selectedConversation: null,
     messages: [],
+    activeUsers: [],
     status: "active",
     error: null,
   },
   reducers: {
-    selectConversation: (state, actions) => {
-      state.selectedConversation = actions.payload;
+    selectConversation: (state, action) => {
+      state.selectedConversation = action.payload;
     },
-    clearConversation: (state, actions) => {
+    clearConversation: (state) => {
       state.selectedConversation = null;
     },
     newMessage: (state, action) => {
       const newMsg = action.payload;
-      state.messages.push(newMsg);
 
-      // Update the corresponding conversation's lastmessage
+      // Only add message if it's for the currently selected conversation
+      if (state.selectedConversation?._id === newMsg.conversation) {
+        state.messages.push(newMsg);
+      }
+
+      // Update last message in the conversation list
       const convIndex = state.conversationList?.findIndex(
         (conv) => conv._id === newMsg.conversation
       );
@@ -65,13 +70,13 @@ const chatlistSlice = createSlice({
       if (convIndex !== -1) {
         state.conversationList[convIndex].lastmessage = newMsg;
 
-        // Optionally, move the updated conversation to the top
-        const updatedConversation = state.conversationList.splice(
-          convIndex,
-          1
-        )[0];
+        // Move that conversation to the top
+        const updatedConversation = state.conversationList.splice(convIndex, 1)[0];
         state.conversationList.unshift(updatedConversation);
       }
+    },
+    setActiveUsers: (state, action) => {
+      state.activeUsers = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -87,7 +92,6 @@ const chatlistSlice = createSlice({
         state.status = "failed";
         state.error = action.error;
       })
-
       .addCase(fetchMessage.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.messages = action.payload;
@@ -95,6 +99,12 @@ const chatlistSlice = createSlice({
   },
 });
 
-export const { selectConversation, newMessage, clearConversation } =
-  chatlistSlice.actions;
+export const {
+  selectConversation,
+  newMessage,
+  clearConversation,
+  setActiveUsers,
+} = chatlistSlice.actions;
+
 export default chatlistSlice.reducer;
+

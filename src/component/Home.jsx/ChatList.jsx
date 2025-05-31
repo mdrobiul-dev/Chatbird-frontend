@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { SlMagnifier } from "react-icons/sl";
 import ChatCard from "./ChatCard";
@@ -13,6 +13,8 @@ import {
   selectConversation,
 } from "../../store/auth/chatlistSlice";
 import ChatListLoading from "../Loading";
+import { initSocket, joinRoom, leaveRoom } from "../../services/soket";
+
 
 const ChatList = ({ onMenuClick }) => {
   const [participantemail, setparticipantemail] = useState("");
@@ -20,15 +22,20 @@ const ChatList = ({ onMenuClick }) => {
   const [showInputBox, setShowInputBox] = useState(false);
   const navigate = useNavigate();
   const userData = useSelector((state) => state.auth.user);
-  const { conversationList, status } = useSelector((state) => state.chatList);
+  const { conversationList, status, selectedConversation } = useSelector(
+    (state) => state.chatList
+  );
+  const { activeUsers } = useSelector((state) => state.chatList);
 
   const dispatch = useDispatch();
+  const prevConversationId = useRef(null);
 
   useEffect(() => {
     dispatch(fetchChatlist());
+    initSocket(); // Ensure socket initialized
   }, []);
 
-  const handleAdd = async (e) => {
+  const handleAdd = async () => {
     try {
       const res = await chatServices.createconversation(participantemail);
       setShowInputBox(false);
@@ -48,10 +55,19 @@ const ChatList = ({ onMenuClick }) => {
   };
 
   const handleChatClick = (chatId) => {
-    const filteredConversations = conversationList.find(
-      (c) => c._id === chatId
-    );
-    dispatch(selectConversation(filteredConversations));
+    const conversation = conversationList.find((c) => c._id === chatId);
+    if (!conversation) return;
+
+    // Leave previous room
+    if (prevConversationId.current) {
+      leaveRoom(prevConversationId.current);
+    }
+
+    // Join new room
+    joinRoom(chatId);
+    prevConversationId.current = chatId;
+
+    dispatch(selectConversation(conversation));
     navigate(`/home/chat/${chatId}`);
   };
 
@@ -142,14 +158,7 @@ const ChatList = ({ onMenuClick }) => {
       </div>
 
       <div className="mx-4 flex flex-col gap-2 overflow-y-auto min-h-0 flex-1 scrollbar-hide">
-        {conversationList.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-full text-gray-500">
-            <p className="text-lg">No conversations yet</p>
-            <p className="text-sm">
-              Start a new chat by clicking the add button
-            </p>
-          </div>
-        ) : filteredConversations.length === 0 ? (
+        {filteredConversations.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full text-gray-500">
             <p className="text-lg">No results found</p>
             <p className="text-sm">Try a different search term</p>
@@ -160,7 +169,7 @@ const ChatList = ({ onMenuClick }) => {
               conversation.creator._id === userData._id
                 ? conversation.participant
                 : conversation.creator;
-            // Format the time
+
             const lastMessageTime = conversation.lastmessage?.createdAt
               ? new Date(conversation.lastmessage.createdAt).toLocaleTimeString(
                   [],
@@ -185,6 +194,7 @@ const ChatList = ({ onMenuClick }) => {
                     conversation?.lastmessage?.content || "No messages yet"
                   }
                   time={lastMessageTime}
+                  isActive={activeUsers.includes(other._id)}
                 />
               </div>
             );
@@ -196,3 +206,4 @@ const ChatList = ({ onMenuClick }) => {
 };
 
 export default ChatList;
+
