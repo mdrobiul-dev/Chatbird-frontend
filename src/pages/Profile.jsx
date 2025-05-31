@@ -196,7 +196,7 @@ const Profile = ({ onBack }) => {
               Cancel
             </button>
           </div>
-        )}  
+        )}
       </div>
     </section>
   );
