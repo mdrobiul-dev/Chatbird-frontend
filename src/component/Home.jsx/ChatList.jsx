@@ -14,7 +14,32 @@ import {
 } from "../../store/auth/chatlistSlice";
 import ChatListLoading from "../Loading";
 import { initSocket, joinRoom, leaveRoom } from "../../services/soket";
+import { motion, AnimatePresence } from "framer-motion";
 
+// Animation variants
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: "spring",
+      stiffness: 80,
+      damping: 8,
+    },
+  },
+};
 
 const ChatList = ({ onMenuClick }) => {
   const [participantemail, setparticipantemail] = useState("");
@@ -32,7 +57,7 @@ const ChatList = ({ onMenuClick }) => {
 
   useEffect(() => {
     dispatch(fetchChatlist());
-    initSocket(); // Ensure socket initialized
+    initSocket();
   }, []);
 
   const handleAdd = async () => {
@@ -81,10 +106,16 @@ const ChatList = ({ onMenuClick }) => {
 
   if (!conversationList || conversationList.length === 0) {
     return (
-      <div className="empty-conversations">
-        <p>No conversations yet</p>
-        <p>Start a new conversation using the button above</p>
-      </div>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="w-full sm:w-[35%] lg:w-[30%] mt-5 sm:mt-10 pt-2 bg-gradient-to-br from-pink-100/50 via-pink-50/50 to-sky-100/50 backdrop-blur-md self-start pb-10 h-[95%] sm:h-[90%] flex flex-col items-center justify-center rounded-xl border border-white/30 shadow-lg text-gray-500"
+      >
+        <p className="text-lg">No conversations yet</p>
+        <p className="text-sm">
+          Start a new conversation using the button above
+        </p>
+      </motion.div>
     );
   }
 
@@ -97,8 +128,26 @@ const ChatList = ({ onMenuClick }) => {
   });
 
   return (
-    <div className="w-full sm:w-[35%] lg:w-[30%] mt-5 sm:mt-10 pt-2 bg-gradient-to-br from-pink-100/50 via-pink-50/50 to-sky-100/50 backdrop-blur-md self-start pb-10 h-[95%] sm:h-[90%] flex flex-col rounded-xl border border-white/30 shadow-lg">
-      <ToastContainer position="top-left" autoClose={5000} theme="dark" />
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+      className="w-full sm:w-[35%] lg:w-[30%] mt-5 sm:mt-10 pt-2 bg-gradient-to-br from-pink-100/50 via-pink-50/50 to-sky-100/50 backdrop-blur-md self-start pb-10 h-[95%] sm:h-[90%] flex flex-col rounded-xl border border-white/30 shadow-lg"
+    >
+      <ToastContainer
+        position="top-left"
+        autoClose={5000}
+        style={{
+          position: "fixed",
+          top: "1rem",
+          right: "1rem",
+          width: "320px",
+          zIndex: 9999,
+        }}
+        toastStyle={{
+          marginBottom: "0.75rem",
+        }}
+      />
       <div className="p-4">
         <div className="flex items-center justify-between mb-2">
           <button
@@ -118,30 +167,40 @@ const ChatList = ({ onMenuClick }) => {
           </button>
         </div>
 
-        {showInputBox && (
-          <div className="relative mt-4 bg-white/90 backdrop-blur-sm p-3 rounded-lg shadow-md">
-            <input
-              onChange={(e) => setparticipantemail(e.target.value)}
-              type="email"
-              placeholder="Enter email address"
-              className="w-full pl-4 pr-10 py-2 bg-white/80 backdrop-blur-md border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-transparent transition-all duration-200"
-            />
-            <div className="flex justify-center gap-4 mt-3">
-              <button
-                className="px-5 py-1 bg-gradient-to-r from-pink-400 to-sky-400 text-white rounded-lg hover:from-pink-500 hover:to-sky-500 transition-all duration-200"
-                onClick={handleAdd}
-              >
-                Add
-              </button>
-              <button
-                className="px-5 py-1 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-all duration-200"
-                onClick={() => setShowInputBox(false)}
-              >
-                <ImCross />
-              </button>
-            </div>
-          </div>
-        )}
+        <AnimatePresence>
+          {showInputBox && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2 }}
+              className="relative overflow-hidden"
+            >
+              <div className="mt-4 bg-white/90 backdrop-blur-sm p-3 rounded-lg shadow-md">
+                <input
+                  onChange={(e) => setparticipantemail(e.target.value)}
+                  type="email"
+                  placeholder="Enter email address"
+                  className="w-full pl-4 pr-10 py-2 bg-white/80 backdrop-blur-md border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-transparent transition-all duration-200"
+                />
+                <div className="flex justify-center gap-4 mt-3">
+                  <button
+                    className="px-5 py-1 bg-gradient-to-r from-pink-400 to-sky-400 text-white rounded-lg hover:from-pink-500 hover:to-sky-500 transition-all duration-200"
+                    onClick={handleAdd}
+                  >
+                    Add
+                  </button>
+                  <button
+                    className="px-5 py-1 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-all duration-200"
+                    onClick={() => setShowInputBox(false)}
+                  >
+                    <ImCross />
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       <div className="px-4 mb-3">
@@ -157,53 +216,63 @@ const ChatList = ({ onMenuClick }) => {
         </div>
       </div>
 
-      <div className="mx-4 flex flex-col gap-2 overflow-y-auto min-h-0 flex-1 scrollbar-hide">
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="show"
+        className="mx-4 flex flex-col gap-2 overflow-y-auto min-h-0 flex-1 scrollbar-hide"
+      >
         {filteredConversations.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-full text-gray-500">
+          <motion.div
+            variants={itemVariants}
+            className="flex flex-col items-center justify-center h-full text-gray-500"
+          >
             <p className="text-lg">No results found</p>
             <p className="text-sm">Try a different search term</p>
-          </div>
+          </motion.div>
         ) : (
-          filteredConversations.map((conversation) => {
-            const other =
-              conversation.creator._id === userData._id
-                ? conversation.participant
-                : conversation.creator;
+          <AnimatePresence>
+            {filteredConversations.map((conversation, index) => {
+              const other =
+                conversation.creator._id === userData._id
+                  ? conversation.participant
+                  : conversation.creator;
 
-            const lastMessageTime = conversation.lastmessage?.createdAt
-              ? new Date(conversation.lastmessage.createdAt).toLocaleTimeString(
-                  [],
-                  {
+              const lastMessageTime = conversation.lastmessage?.createdAt
+                ? new Date(
+                    conversation.lastmessage.createdAt
+                  ).toLocaleTimeString([], {
                     hour: "2-digit",
                     minute: "2-digit",
                     hour12: true,
-                  }
-                )
-              : "Just now";
+                  })
+                : "Just now";
 
-            return (
-              <div
-                key={conversation._id}
-                onClick={() => handleChatClick(conversation._id)}
-                className="cursor-pointer hover:bg-white/50 transition-colors duration-200 rounded-lg"
-              >
-                <ChatCard
-                  name={other.fullName}
-                  avatar={other.avatar}
-                  message={
-                    conversation?.lastmessage?.content || "No messages yet"
-                  }
-                  time={lastMessageTime}
-                  isActive={activeUsers.includes(other._id)}
-                />
-              </div>
-            );
-          })
+              return (
+                <motion.div
+                  key={conversation._id}
+                  variants={itemVariants}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => handleChatClick(conversation._id)}
+                  className="cursor-pointer hover:bg-white/50 transition-colors duration-200 rounded-lg"
+                >
+                  <ChatCard
+                    name={other.fullName}
+                    avatar={other.avatar}
+                    message={
+                      conversation?.lastmessage?.content || "No messages yet"
+                    }
+                    time={lastMessageTime}
+                    isActive={activeUsers.includes(other._id)}
+                  />
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
         )}
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 
 export default ChatList;
-

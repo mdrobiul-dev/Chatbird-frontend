@@ -4,8 +4,16 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
+html {
+  overflow-y: scroll;
+}
 
-
+body {
+  overflow: hidden !important; /* Prevent any overflow */
+  position: fixed; /* Lock body in place */
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+}
 
 /* Add this to hide scrollbar for the messages area */
 .scrollbar-hide::-webkit-scrollbar {
@@ -29,4 +37,6 @@
 }
 
 @config "../tailwind.config.js"
+
+
 

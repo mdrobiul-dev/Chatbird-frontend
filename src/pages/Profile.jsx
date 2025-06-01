@@ -6,6 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { authServices } from "../services/api";
 import { loggedUser } from "../store/auth/authSlice";
 import { MdOutlineCloudUpload } from "react-icons/md";
+import { motion } from "framer-motion";
 
 const Profile = ({ onBack }) => {
   const userData = useSelector((state) => state.auth.user);
@@ -81,8 +82,27 @@ const Profile = ({ onBack }) => {
 
   return (
     <section className="h-screen w-full flex items-center justify-center px-4 bg-gradient-to-br from-pink-300 via-pink-200 to-sky-300 bg-opacity-90 backdrop-blur-sm">
-      <ToastContainer position="top-right" autoClose={5000} theme="dark" />
-      <div className="relative w-full max-w-2xl p-6 rounded-2xl shadow-xl bg-white/30 backdrop-blur-md border border-white/30 flex flex-col gap-6">
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        style={{
+          position: "fixed",
+          top: "1rem",
+          right: "1rem",
+          width: "320px",
+          zIndex: 9999,
+        }}
+        toastStyle={{
+          marginBottom: "0.75rem",
+        }}
+      />
+      <motion.div
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.9, opacity: 0 }}
+        transition={{ duration: 0.3 }}
+        className="relative w-full max-w-2xl p-6 rounded-2xl shadow-xl bg-white/30 backdrop-blur-md border border-white/30 flex flex-col gap-6"
+      >
         <button
           onClick={onBack}
           className="absolute top-4 right-4 text-rose-600 hover:text-rose-800 text-2xl transition"
@@ -197,7 +217,7 @@ const Profile = ({ onBack }) => {
             </button>
           </div>
         )}
-      </div>
+      </motion.div>
     </section>
   );
 };

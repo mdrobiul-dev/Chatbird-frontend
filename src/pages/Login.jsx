@@ -4,10 +4,12 @@ import { authServices } from "../services/api";
 import { ToastContainer, toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { loggedUser } from "../store/auth/authSlice";
+import { FiEye, FiEyeOff } from "react-icons/fi"; // Import eye icons
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false); // State for password visibility
 
   const [loginData, setloginData] = useState({
     email: "",
@@ -35,19 +37,25 @@ const Login = () => {
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-300 via-pink-200 to-sky-300 bg-opacity-90 backdrop-blur-sm px-4">
       <ToastContainer
         position="top-right"
         autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick={false}
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
+        style={{
+          position: "fixed",
+          top: "1rem",
+          right: "1rem",
+          width: "320px",
+          zIndex: 9999,
+        }}
+        toastStyle={{
+          marginBottom: "0.75rem",
+        }}
       />
       <div className="w-full max-w-md mx-auto bg-white/80 backdrop-blur-md rounded-xl shadow-lg overflow-hidden p-8 space-y-6">
         {/* Logo */}
@@ -97,20 +105,33 @@ const Login = () => {
               >
                 Password
               </label>
-              <input
-                onChange={(e) =>
-                  setloginData((prev) => ({
-                    ...prev,
-                    password: e.target.value,
-                  }))
-                }
-                id="password"
-                name="password"
-                type="password"
-                required
-                className="w-full px-4 py-3 rounded-lg bg-white/90 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-sky-300 focus:border-transparent transition-all duration-200"
-                placeholder="••••••••"
-              />
+              <div className="relative">
+                <input
+                  onChange={(e) =>
+                    setloginData((prev) => ({
+                      ...prev,
+                      password: e.target.value,
+                    }))
+                  }
+                  id="password"
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  required
+                  className="w-full px-4 py-3 rounded-lg bg-white/90 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-sky-300 focus:border-transparent transition-all duration-200 pr-10"
+                  placeholder="••••••••"
+                />
+                <button
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700"
+                >
+                  {showPassword ? (
+                    <FiEyeOff className="h-5 w-5" />
+                  ) : (
+                    <FiEye className="h-5 w-5" />
+                  )}
+                </button>
+              </div>
             </div>
           </div>
 
