@@ -4,12 +4,12 @@ import { authServices } from "../services/api";
 import { ToastContainer, toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { loggedUser } from "../store/auth/authSlice";
-import { FiEye, FiEyeOff } from "react-icons/fi"; // Import eye icons
+import { FiEye, FiEyeOff } from "react-icons/fi"; 
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState(false); // State for password visibility
+  const [showPassword, setShowPassword] = useState(false); 
 
   const [loginData, setloginData] = useState({
     email: "",

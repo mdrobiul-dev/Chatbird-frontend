@@ -21,7 +21,7 @@ const Inbox = () => {
   const [content, setcontent] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const messageEndRef = useRef(null); //  Ref for auto-scroll
+  const messageEndRef = useRef(null); 
 
   const selectConversation = useSelector(
     (state) => state.chatList.selectedConversation
@@ -146,7 +146,7 @@ const Inbox = () => {
                 </div>
               );
             })}
-            <div ref={messageEndRef} /> {/* 👈 Scroll anchor */}
+            <div ref={messageEndRef} /> 
           </>
         )}
       </div>

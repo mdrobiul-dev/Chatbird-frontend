@@ -16,18 +16,18 @@ const Profile = ({ onBack }) => {
     password: "",
   });
   const [isEditing, setIsEditing] = useState(false);
-  const [avatarFile, setAvatarFile] = useState(null); // committed avatar file
-  const [tempAvatarFile, setTempAvatarFile] = useState(null); // temporary preview during edit
+  const [avatarFile, setAvatarFile] = useState(null); 
+  const [tempAvatarFile, setTempAvatarFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
   const dispatch = useDispatch();
 
   const toggleEdit = () => {
     setIsEditing(!isEditing);
     if (!isEditing) {
-      // enter edit mode
+     
       setTempAvatarFile(null);
     } else {
-      // cancel editing
+     
       setFormData({
         fullName: userData.fullName,
         bio: userData.bio || "",
@@ -63,7 +63,7 @@ const Profile = ({ onBack }) => {
       localStorage.setItem("loggedUser", JSON.stringify(updatedUser));
       toast.success(message);
       setIsEditing(false);
-      setAvatarFile(tempAvatarFile); // commit avatar
+      setAvatarFile(tempAvatarFile); 
       setTempAvatarFile(null);
     } catch (error) {
       const message =
