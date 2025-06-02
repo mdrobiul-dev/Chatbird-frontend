@@ -76,4 +76,4 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;  
+export default ForgotPassword;
