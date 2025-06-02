@@ -9,11 +9,11 @@ const ForgotPassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     setLoading(true);
 
     try {
-      const res = await authServices.forgetpassword( email );
+      const res = await authServices.forgetpassword(email);
       toast.success(res.message);
     } catch (error) {
       const message =
@@ -76,4 +76,4 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default ForgotPassword;  
