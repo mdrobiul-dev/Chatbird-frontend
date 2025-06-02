@@ -50,6 +50,10 @@ export const authServices = {
     });
     return res.data;
   },
+  forgetpassword : async (email) => {
+     const res = await api.post("/auth/forgetpassword", {email})
+     return res.data;
+  }
 };
 
 export const chatServices = {

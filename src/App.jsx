@@ -8,6 +8,8 @@ import ChatListLoading from "./component/Loading";
 import { useEffect } from "react";
 import { initSocket } from "./services/soket";
 import Profile from "./pages/Profile";
+import ForgotPassword from "./pages/Forgetpass";
+import ResetPassword from "./pages/Resetpassword";
 
 function App() {
   useEffect(() => {
@@ -21,6 +23,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Registration />} />
         <Route path="/veriefy-email" element={<Emailvariefy />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="reset-password/:randomString" element={<ResetPassword />} />
 
         <Route path="/home" element={<Layout />}>
           <Route index element={<ResponsiveHome />} />
