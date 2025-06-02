@@ -30,7 +30,9 @@ const ResetPassword = () => {
       setStatus(response.data.message || "Password reset successful");
     } catch (err) {
       setStatus(
-        err.response?.data?.error || err.response?.data || "Something went wrong"
+        err.response?.data?.error ||
+          err.response?.data ||
+          "Something went wrong"
       );
     } finally {
       setLoading(false);
