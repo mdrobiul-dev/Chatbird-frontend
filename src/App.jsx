@@ -24,7 +24,10 @@ function App() {
         <Route path="/register" element={<Registration />} />
         <Route path="/veriefy-email" element={<Emailvariefy />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="reset-password/:randomString" element={<ResetPassword />} />
+        <Route
+          path="reset-password/:randomString"
+          element={<ResetPassword />}
+        />
 
         <Route path="/home" element={<Layout />}>
           <Route index element={<ResponsiveHome />} />
