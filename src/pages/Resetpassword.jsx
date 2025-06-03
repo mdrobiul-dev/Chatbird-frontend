@@ -1,6 +1,7 @@
-import { useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios";
+import { authServices } from "../services/api";
+import { ToastContainer, toast } from "react-toastify";
 
 const ResetPassword = () => {
   const { randomString } = useParams();
@@ -11,7 +12,8 @@ const ResetPassword = () => {
   const [confirm, setConfirm] = useState("");
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState("");
-
+  const navigate = useNavigate()
+  
   const handleReset = async (e) => {
     e.preventDefault();
     if (password !== confirm) {
@@ -23,17 +25,19 @@ const ResetPassword = () => {
     setStatus("");
 
     try {
-      const response = await axios.post(
-        `/api/v1/auth/resetpassword/${randomString}?email=${email}`,
-        { password }
-      );
-      setStatus(response.data.message || "Password reset successful");
-    } catch (err) {
-      setStatus(
-        err.response?.data?.error ||
-          err.response?.data ||
-          "Something went wrong"
-      );
+     const res = await authServices.resetpassword(randomString,email,password)
+      toast.success(res.message);
+     setTimeout(() => {
+        navigate("/login");
+      }, 2000);
+    } catch (error) {
+      const message =
+              error?.response?.data?.error ||
+              error?.response?.data?.message ||
+              error?.message ||
+              "Something went wrong!";
+            console.log(error);
+            toast.error(message);
     } finally {
       setLoading(false);
     }
@@ -41,6 +45,20 @@ const ResetPassword = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-300 via-pink-200 to-sky-300 bg-opacity-90 backdrop-blur-sm px-4">
+       <ToastContainer
+              position="top-right"
+              autoClose={5000}
+              style={{
+                position: "fixed",
+                top: "1rem",
+                right: "1rem",
+                width: "320px",
+                zIndex: 9999,
+              }}
+              toastStyle={{
+                marginBottom: "0.75rem",
+              }}
+            />
       <div className="w-full max-w-md bg-white/40 backdrop-blur-md p-6 rounded-xl shadow-lg border border-white/30">
         <h2 className="text-2xl font-semibold mb-6 text-center text-gray-800">
           Reset Your Password

@@ -10,13 +10,14 @@ import { motion } from "framer-motion";
 
 const Profile = ({ onBack }) => {
   const userData = useSelector((state) => state.auth.user);
+
   const [formData, setFormData] = useState({
     fullName: userData.fullName,
     bio: userData.bio || "",
     password: "",
   });
   const [isEditing, setIsEditing] = useState(false);
-  const [avatarFile, setAvatarFile] = useState(null); 
+  const [avatarFile, setAvatarFile] = useState(null);
   const [tempAvatarFile, setTempAvatarFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
   const dispatch = useDispatch();
@@ -24,10 +25,8 @@ const Profile = ({ onBack }) => {
   const toggleEdit = () => {
     setIsEditing(!isEditing);
     if (!isEditing) {
-     
       setTempAvatarFile(null);
     } else {
-     
       setFormData({
         fullName: userData.fullName,
         bio: userData.bio || "",
@@ -55,15 +54,15 @@ const Profile = ({ onBack }) => {
       setIsUploading(true);
       const form = new FormData();
       form.append("fullName", formData.fullName);
+      form.append("bio", formData.bio);
       if (formData.password) form.append("password", formData.password);
       if (tempAvatarFile) form.append("avatar", tempAvatarFile);
-
       const { updatedUser, message } = await authServices.update(form);
       dispatch(loggedUser(updatedUser));
       localStorage.setItem("loggedUser", JSON.stringify(updatedUser));
       toast.success(message);
       setIsEditing(false);
-      setAvatarFile(tempAvatarFile); 
+      setAvatarFile(tempAvatarFile);
       setTempAvatarFile(null);
     } catch (error) {
       const message =
@@ -129,7 +128,6 @@ const Profile = ({ onBack }) => {
               getInitial(userData.fullName)
             )}
 
-            {/* Upload icon (only when editing & no preview selected) */}
             {isEditing && !tempAvatarFile && (
               <label className="absolute inset-0 flex items-center justify-center bg-black/10 hover:bg-black/20 cursor-pointer transition rounded-full">
                 <MdOutlineCloudUpload className="text-3xl text-white drop-shadow" />
@@ -142,7 +140,6 @@ const Profile = ({ onBack }) => {
               </label>
             )}
 
-            {/* Uploading overlay */}
             {isUploading && (
               <div className="absolute inset-0 bg-white/60 flex items-center justify-center z-10">
                 <div className="w-6 h-6 border-4 border-rose-300 border-t-transparent rounded-full animate-spin"></div>
@@ -173,10 +170,10 @@ const Profile = ({ onBack }) => {
                 className="w-full text-gray-700 bg-transparent outline-none border-b border-rose-200 focus:ring-2 focus:ring-rose-300 rounded"
                 placeholder="Write your bio here"
               />
+            ) : userData.bio ? (
+              <p className="text-gray-700 font-medium">{userData.bio}</p>
             ) : (
-              <p className="text-gray-700 font-medium">
-                {userData.bio || "Write your bio here"}
-              </p>
+              <p className="text-gray-400 italic">Write your bio here</p>
             )}
 
             <p className="text-sm text-gray-600">{userData.email}</p>

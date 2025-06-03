@@ -53,6 +53,10 @@ export const authServices = {
   forgetpassword : async (email) => {
      const res = await api.post("/auth/forgetpassword", {email})
      return res.data;
+  },
+  resetpassword : async (randomString,email,password) => {
+    const res = await api.post(`/auth/resetpassword/${randomString}?email=${email}`, {password})
+    return res.data
   }
 };
 
