@@ -154,7 +154,7 @@ const Profile = ({ onBack }) => {
               onChange={(e) =>
                 setFormData({ ...formData, fullName: e.target.value })
               }
-              className={`w-full text-3xl font-semibold text-center${
+              className={`w-full text-3xl font-semibold mx-auto${
                 isEditing
                   ? "text-rose-600 focus:ring-2 ring-rose-300"
                   : "text-gray-800"
