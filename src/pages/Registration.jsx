@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { authServices } from "../services/api";
 import { ToastContainer, toast } from "react-toastify";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 const Registration = () => {
   const navigate = useNavigate();
@@ -11,6 +12,8 @@ const Registration = () => {
     email: "",
     password: "",
   });
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleReg = async (e) => {
     e.preventDefault();
@@ -108,7 +111,7 @@ const Registration = () => {
             </div>
 
             {/* Password Field */}
-            <div>
+            <div className="relative">
               <label
                 className="block text-sm font-medium text-gray-700 mb-1"
                 htmlFor="password"
@@ -121,11 +124,17 @@ const Registration = () => {
                 }
                 id="password"
                 name="password"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 required
-                className="w-full px-4 py-3 rounded-lg bg-white/90 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-transparent transition-all duration-200"
-                placeholder="••••••••"
+                className="w-full px-4 py-3 rounded-lg bg-white/90 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-transparent transition-all duration-200 pr-12"
+                placeholder="at least 8 characters, number, uppercase"
               />
+              <div
+                className="absolute right-3 top-[42px] text-xl text-gray-600 cursor-pointer"
+                onClick={() => setShowPassword((prev) => !prev)}
+              >
+                {showPassword ? <FiEyeOff /> : <FiEye />}
+              </div>
             </div>
           </div>
 
@@ -158,3 +167,4 @@ const Registration = () => {
 };
 
 export default Registration;
+
