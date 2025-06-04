@@ -46,14 +46,13 @@ const ChatList = ({ onMenuClick }) => {
   const [search, setSearch] = useState("");
   const [showInputBox, setShowInputBox] = useState(false);
   const navigate = useNavigate();
-  const userData = useSelector((state) => state.auth.user);
-  const { conversationList, status, selectedConversation } = useSelector(
-    (state) => state.chatList
-  );
-  const { activeUsers } = useSelector((state) => state.chatList);
-
   const dispatch = useDispatch();
   const prevConversationId = useRef(null);
+
+  const userData = useSelector((state) => state.auth.user);
+  const { conversationList, status, selectedConversation, activeUsers } = useSelector(
+    (state) => state.chatList
+  );
 
   useEffect(() => {
     dispatch(fetchChatlist());
@@ -62,11 +61,10 @@ const ChatList = ({ onMenuClick }) => {
 
   const handleAdd = async () => {
     try {
-      const res = await chatServices.createconversation(participantemail);
+      await chatServices.createconversation(participantemail);
       setShowInputBox(false);
       setparticipantemail("");
       dispatch(fetchChatlist());
-
       toast.success("Conversation created successfully!");
     } catch (error) {
       const message =
@@ -75,7 +73,6 @@ const ChatList = ({ onMenuClick }) => {
         error?.message ||
         "Something went wrong!";
       toast.error(message);
-      console.log(message);
     }
   };
 
@@ -83,18 +80,25 @@ const ChatList = ({ onMenuClick }) => {
     const conversation = conversationList.find((c) => c._id === chatId);
     if (!conversation) return;
 
-    // Leave previous room
     if (prevConversationId.current) {
       leaveRoom(prevConversationId.current);
     }
 
-    // Join new room
     joinRoom(chatId);
     prevConversationId.current = chatId;
 
     dispatch(selectConversation(conversation));
     navigate(`/home/chat/${chatId}`);
   };
+
+  const filteredConversations = conversationList?.filter((conversation) => {
+    const other =
+      conversation.creator._id === userData._id
+        ? conversation.participant
+        : conversation.creator;
+
+    return other.fullName.toLowerCase().includes(search.toLowerCase());
+  }) || [];
 
   if (status === "loading") {
     return (
@@ -104,29 +108,6 @@ const ChatList = ({ onMenuClick }) => {
     );
   }
 
-  if (!conversationList || conversationList.length === 0) {
-    return (
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="w-full sm:w-[35%] lg:w-[30%] mt-5 sm:mt-10 pt-2 bg-gradient-to-br from-pink-100/50 via-pink-50/50 to-sky-100/50 backdrop-blur-md self-start pb-10 h-[95%] sm:h-[90%] flex flex-col items-center justify-center rounded-xl border border-white/30 shadow-lg text-gray-500"
-      >
-        <p className="text-lg">No conversations yet</p>
-        <p className="text-sm">
-          Start a new conversation using the button above
-        </p>
-      </motion.div>
-    );
-  }
-
-  const filteredConversations = conversationList.filter((conversation) => {
-    const other =
-      conversation.creator._id === userData._id
-        ? conversation.participant
-        : conversation.creator;
-    return other.fullName.toLowerCase().includes(search.toLowerCase());
-  });
-
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -134,20 +115,8 @@ const ChatList = ({ onMenuClick }) => {
       transition={{ duration: 0.3 }}
       className="w-full sm:w-[35%] lg:w-[30%] mt-5 sm:mt-10 pt-2 bg-gradient-to-br from-pink-100/50 via-pink-50/50 to-sky-100/50 backdrop-blur-md self-start pb-10 h-[95%] sm:h-[90%] flex flex-col rounded-xl border border-white/30 shadow-lg"
     >
-      <ToastContainer
-        position="top-left"
-        autoClose={5000}
-        style={{
-          position: "fixed",
-          top: "1rem",
-          right: "1rem",
-          width: "320px",
-          zIndex: 9999,
-        }}
-        toastStyle={{
-          marginBottom: "0.75rem",
-        }}
-      />
+      <ToastContainer position="top-left" autoClose={5000} />
+
       <div className="p-4">
         <div className="flex items-center justify-between mb-2">
           <button
@@ -179,20 +148,21 @@ const ChatList = ({ onMenuClick }) => {
               <div className="mt-4 bg-white/90 backdrop-blur-sm p-3 rounded-lg shadow-md">
                 <input
                   onChange={(e) => setparticipantemail(e.target.value)}
+                  value={participantemail}
                   type="email"
                   placeholder="Enter email address"
-                  className="w-full pl-4 pr-10 py-2 bg-white/80 backdrop-blur-md border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-300 focus:border-transparent transition-all duration-200"
+                  className="w-full pl-4 pr-10 py-2 bg-white/80 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-300 transition-all"
                 />
                 <div className="flex justify-center gap-4 mt-3">
                   <button
-                    className="px-5 py-1 bg-gradient-to-r from-pink-400 to-sky-400 text-white rounded-lg hover:from-pink-500 hover:to-sky-500 transition-all duration-200"
                     onClick={handleAdd}
+                    className="px-5 py-1 bg-gradient-to-r from-pink-400 to-sky-400 text-white rounded-lg hover:from-pink-500 hover:to-sky-500 transition"
                   >
                     Add
                   </button>
                   <button
-                    className="px-5 py-1 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-all duration-200"
                     onClick={() => setShowInputBox(false)}
+                    className="px-5 py-1 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition"
                   >
                     <ImCross />
                   </button>
@@ -210,7 +180,7 @@ const ChatList = ({ onMenuClick }) => {
             placeholder="Search chats..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-white/90 backdrop-blur-md border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-sky-300 focus:border-transparent transition-all duration-200"
+            className="w-full pl-10 pr-4 py-2 bg-white/90 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-sky-300"
           />
           <SlMagnifier className="absolute left-3 top-2.5 text-gray-400" />
         </div>
@@ -222,26 +192,32 @@ const ChatList = ({ onMenuClick }) => {
         animate="show"
         className="mx-4 flex flex-col gap-2 overflow-y-auto min-h-0 flex-1 scrollbar-hide"
       >
-        {filteredConversations.length === 0 ? (
+        {conversationList.length === 0 ? (
+          <motion.div
+            variants={itemVariants}
+            className="flex flex-col items-center justify-center h-full text-gray-500"
+          >
+            <p className="text-lg">No conversations yet</p>
+            <p className="text-sm">Start one using the + button</p>
+          </motion.div>
+        ) : filteredConversations.length === 0 ? (
           <motion.div
             variants={itemVariants}
             className="flex flex-col items-center justify-center h-full text-gray-500"
           >
             <p className="text-lg">No results found</p>
-            <p className="text-sm">Try a different search term</p>
+            <p className="text-sm">Try a different search</p>
           </motion.div>
         ) : (
           <AnimatePresence>
-            {filteredConversations.map((conversation, index) => {
+            {filteredConversations.map((conversation) => {
               const other =
                 conversation.creator._id === userData._id
                   ? conversation.participant
                   : conversation.creator;
 
               const lastMessageTime = conversation.lastmessage?.createdAt
-                ? new Date(
-                    conversation.lastmessage.createdAt
-                  ).toLocaleTimeString([], {
+                ? new Date(conversation.lastmessage.createdAt).toLocaleTimeString([], {
                     hour: "2-digit",
                     minute: "2-digit",
                     hour12: true,
@@ -259,9 +235,7 @@ const ChatList = ({ onMenuClick }) => {
                   <ChatCard
                     name={other.fullName}
                     avatar={other.avatar}
-                    message={
-                      conversation?.lastmessage?.content || "No messages yet"
-                    }
+                    message={conversation?.lastmessage?.content || "No messages yet"}
                     time={lastMessageTime}
                     isActive={activeUsers.includes(other._id)}
                   />
@@ -276,3 +250,4 @@ const ChatList = ({ onMenuClick }) => {
 };
 
 export default ChatList;
+
