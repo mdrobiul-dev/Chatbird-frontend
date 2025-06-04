@@ -156,8 +156,8 @@ const Profile = ({ onBack }) => {
               }
               className={`w-full text-3xl font-semibold text-center md:text-left ${
                 isEditing
-                  ? "text-rose-600 focus:ring-2 ring-rose-300"
-                  : "text-gray-800"
+                  ? "text-rose-600 focus:ring-2 ring-rose-300 text-center"
+                  : "text-gray-800 text-center"
               } bg-transparent outline-none transition rounded`}
             />
 
