@@ -147,14 +147,14 @@ const Profile = ({ onBack }) => {
             )}
           </div>
 
-          <div className="flex-1 text-center md:text-left space-y-2">
+          <div className="flex-1 text-center md:text-left space-y-2 ">
             <input
               readOnly={!isEditing}
               value={formData.fullName}
               onChange={(e) =>
                 setFormData({ ...formData, fullName: e.target.value })
               }
-              className={`w-full text-3xl font-semibold mx-auto${
+              className={`w-full text-3xl font-semibold text-center md:text-left ${
                 isEditing
                   ? "text-rose-600 focus:ring-2 ring-rose-300"
                   : "text-gray-800"
