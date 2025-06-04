@@ -6,7 +6,7 @@ let socket;
 
 export const initSocket = () => {
   if (!socket) {
-    socket = io.connect("http://localhost:8000");
+    socket = io.connect("https://chatbird.onrender.com");
 
     socket.on("connect", () => {
       console.log("Socket is connected with server");
