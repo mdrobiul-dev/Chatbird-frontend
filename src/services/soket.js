@@ -6,7 +6,7 @@ let socket;
 
 export const initSocket = () => {
   if (!socket) {
-    socket = io.connect("https://chatbird-beckend.onrender.com");
+    socket = io.connect("https://chatbird-beckend.onrender.com/api/v1");
 
     socket.on("connect", () => {
       console.log("Socket is connected with server");
