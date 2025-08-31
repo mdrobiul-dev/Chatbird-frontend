@@ -6,7 +6,10 @@ let socket;
 
 export const initSocket = () => {
   if (!socket) {
-    socket = io.connect("https://chatbird-beckend.onrender.com/api/v1");
+    // Connect to the correct backend URL (remove /api/v1 if not used in backend)
+    socket = io.connect("https://chatbird-beckend.onrender.com", {
+      withCredentials: true // Required for credentials: true in CORS
+    });
 
     socket.on("connect", () => {
       console.log("Socket is connected with server");
