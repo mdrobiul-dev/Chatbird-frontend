@@ -6,13 +6,9 @@ export const authSlice = createSlice({
     user: JSON.parse(localStorage.getItem("loggedUser")) || null,
   },
   reducers: {
-   loggedUser: (state, actions) => {
-  state.user = actions.payload.user
-  state.token = actions.payload.token
-  state.isAuthenticated = true
-
-  console.log("🟢 Redux updated with:", actions.payload);
-},
+    loggedUser: (state, actions) => {
+      state.user = actions.payload
+    },
     loggedOut: (state) => {
      state.user = null;
       localStorage.removeItem("token");

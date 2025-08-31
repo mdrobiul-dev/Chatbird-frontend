@@ -10,10 +10,9 @@ const api = axios.create({
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
-    console.log("📤 Sending request to:", config.url, "with token:", token);
 
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+      config.headers.Authorization = token;
     }
     return config;
   },
@@ -35,32 +34,14 @@ export const authServices = {
     const res = await api.post("/auth/resentotp", { email });
     return res.data;
   },
-
   login: async (userData) => {
-  try {
     const res = await api.post("/auth/login", userData);
-
-    // Debugging logs
-    console.log("🔑 Login response data:", res.data);
-    console.log("🔑 acces_token received:", res.data.acces_token);
-    console.log("🔑 user received:", res.data.user);
-
     if (res.data.acces_token) {
       localStorage.setItem("token", res.data.acces_token);
       localStorage.setItem("loggedUser", JSON.stringify(res.data.user));
-      console.log("✅ Token & User saved in localStorage");
-    } else {
-      console.warn("⚠️ No acces_token found in response");
     }
-
     return res.data;
-  } catch (err) {
-    console.error("❌ Login request failed:", err.response?.data || err.message);
-    throw err;
-  }
-},
-
-
+  },
   update: async (formData) => {
     const res = await api.post("/auth/profileupdate", formData, {
       headers: {
